@@ -1,0 +1,69 @@
+- Types of scheduling policies: 
+    - 
+    - Pre-emptive: 
+        - 
+        - Used in time-sharing environments
+        - Interrupts job processing after a specific amount of time if there has been no other interrupts
+        - Transfers CPU to another job
+        - 
+    - Non-pre-emptive: 
+        - Functions without external interrupts
+        - A job or process remains in a running state until interrupted
+by internal interrupts e.g. I/O request: used in batch systems 
+        - 
+    - 
+- Pre-emptive algorithms: 
+    - 
+    - Shortest remaining time (SRT)
+    - Round robin
+    - 
+- Shortest remaining time: 
+    - 
+    - Processor allocated to job closest to completion: Preemptive if newer job has shorter completion time
+    - Used in batch environments but cannot be used in interactive: Short jobs given priority
+    - Cannot implement in interactive system: Requires advance CPU time knowledge
+    - 
+    - Involves overhead: 
+        - System monitors CPU time for READY queue jobs
+        - Performs context switching  
+        - 
+    - 
+- Round Robin: 
+    - 
+    - Job placed on READY queue (FIFO scheme)
+    - 
+    - Process Scheduler selects first job: 
+        - Sets timer to time quantum
+        - Allocates CPU 
+        - 
+    - If job CPU cycle > time quantum:
+
+        - Job pre-empted and placed at end of READY queue
+        - Information saved in PCB   
+        - 
+    - If job CPU cycle < time quantum: 
+        - Job finished: allocated resources released and job returned to user
+        - Interrupted by I/O request: information saved in PCB and linked to I/O queue 
+        - 
+    - Once I/O request satisfied: 
+        - Job returns to end of READY queue and awaits CPU 
+        - 
+    - 
+    - Efficiency depends on time quantum size, in relation to average CPU cycle
+    - If the Quantum is too large (larger than most CPU cycles), the Algorithm reduces to FCFS scheme (Non-pre-emptive)
+    - If the Quantum is too small, Context switching occurs (a job is pre-emptive ). Job execution slows down and overhead dramatically increases
+    - General rules of thumb for the best quantum time size:
+        - Long enough for 80% of CPU cycles to complete
+        - At least 100 times longer than context switch time
+requirement  
+        - 
+    - 
+- Conclusion: 
+    - 
+    - Processor Manager allocates CPU among all users
+    - Job scheduling: Based on characteristics
+    - Process and thread scheduling: Instant-by-instant allocation of CPU 
+    - Interrupt handler: generates and resolves interrupts
+    - Each scheduling algorithm is unique in terms of Characteristics, objectives, and applications
+    - System designer selects the best policy and algorithm after a careful strengths and weaknesses evaluation  
+- 
