@@ -1,5 +1,17 @@
 # Welcome to Link Slayer. Please read README.md for more information
-
+def menu_select():
+    while True:
+        try:
+            menu = int(input("\n\U0001F525 What would you like to do? \U0001F525\n \
+                \n\U0001F5251. Read a file in this directory \U0001F525 \
+                \n\U0001F5252. Read a file from the terminal \U0001F525 \
+                \n\U0001F5253. Exit  \U0001F525\n"))
+            return menu
+        except TypeError:
+            print("\nError: Invalid character entered. Please enter a single digit integer\n")
+            menu = int(input("\n\U0001F525 What would you like to do? \U0001F525\n"))
+            
+            
 def intake_name(filename : str):
     '''Function to intake a filename and open the file in read mode. If the file does not exist the function
     will be repeatedly ask for a valid filename. It return a list, with each element being a line from the file'''
@@ -42,16 +54,47 @@ def slayer(newfile, lines):
 
 print("\n\U0001F525 WELCOME TO LINK SLAYER \U0001F525\n")
 
-#intakes name of file to be read       
-filename = input("\n\U0001F525 Please enter the name of the text file you wish to cleanse of its sins \U0001F525 \n")
+menu = 0
 
-lines = intake_name(filename)
-
-#intakes name of file to be written to
-new_name = input("\n\U0001F525 Please enter the name of the new text file that will be summoned \U0001F525 \n(This will overwrite any existing file of the same name) \n")
-
-newfile = new_txt(new_name)
-
-link_count = slayer(newfile, lines)
+while menu != 3:
+    
+    menu = menu_select()
+    
+    match menu:
         
-print("\n\U0001F525", link_count ,"link(s) have been slain! \U0001F525\n")
+        case 1:
+            #intakes name of file to be read       
+            filename = input("\n\U0001F525 Please enter the name of the text file you wish to cleanse of its sins \U0001F525 \n")
+
+            lines = intake_name(filename)
+
+            #intakes name of file to be written to
+            new_name = input("\n\U0001F525 Please enter the name of the new text file that will be summoned \U0001F525 \n(This will overwrite any existing file of the same name) \n")
+
+            newfile = new_txt(new_name)
+
+            link_count = slayer(newfile, lines)
+                    
+            print("\n\U0001F525", link_count ,"link(s) have been slain! \U0001F525\n")
+                
+        case 2:
+            #intakes text to be read       
+
+            lines = str(input("\n\U0001F525 Please paste the text you wish to vanquish links from into the terminal (Right Click) \U0001F525\n"))
+
+            #intakes name of file to be written to
+            new_name = input("\n\U0001F525 Please enter the name of the new text file that will be summoned \U0001F525 \n(This will overwrite any existing file of the same name) \n")
+
+            newfile = new_txt(new_name)
+
+            link_count = slayer(newfile, lines)
+                    
+            print("\n\U0001F525", link_count ,"link(s) have been slain! \U0001F525\n")
+            
+        case 3:
+            print("\n\U0001F525 Fare thee well, Hero \U0001F525\n")
+            break    
+        
+        case _:
+            print("\n\U0001F525 Not a valid menu option \U0001F525\n")
+            
