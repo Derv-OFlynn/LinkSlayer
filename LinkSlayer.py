@@ -5,7 +5,8 @@ def menu_select():
             menu = int(input("\n\U0001F525 What would you like to do? \U0001F525\n \
                 \n\U0001F5251. Read a file in this directory \U0001F525 \
                 \n\U0001F5252. Read a file from the terminal \U0001F525 \
-                \n\U0001F5253. Exit  \U0001F525\n"))
+                \n\U0001F5253. Read a file from this directory and append it to another file in this directory \U0001F525 \
+                \n\U0001F5254. Exit  \U0001F525\n"))
             return menu
         except TypeError:
             print("\nError: Invalid character entered. Please enter a single digit integer\n")
@@ -33,6 +34,26 @@ def new_txt(new_name : str):
         except FileExistsError:
             new_name = input("\nInvalid File name. Try again.\n")
             
+def file_amalgam(lines):
+    '''Function to intake a filename and open the file in read mode. If the file does not exist the function
+    will be repeatedly ask for a valid filename. It returns a list, with each element being a line from the file'''
+    
+    while True:
+        try:
+            destination = str(input("\n\U0001F525 Please enter the name of the new text file you wish to add this file to \U0001F525 \n(This will overwrite any existing file of the same name) \n"))
+        except FileNotFoundError:
+            #DERV YOU'RE WORKING ON THIS BIT
+            
+    while True:
+        try:
+            readfile = open(filename, "r")
+            lines = readfile.readlines()
+            readfile.close()
+            return lines
+        except FileNotFoundError:
+            filename = input("\nFile not found, please enter the name of a file within this directory \n")
+    
+            
 def slayer(newfile, lines):
     '''Function to intake a file object and a list of elements making of the contents of a previously read file.
     Writes the contents of the list to the new file, unless a line contains a keyphrase that is meant to be excluded
@@ -56,7 +77,7 @@ print("\n\U0001F525 WELCOME TO LINK SLAYER \U0001F525\n")
 
 menu = 0
 
-while menu != 3:
+while menu != 4:
     
     menu = menu_select()
     
@@ -92,6 +113,13 @@ while menu != 3:
             print("\n\U0001F525", link_count ,"link(s) have been slain! \U0001F525\n")
             
         case 3:
+            #appends new file to current file
+            filename = input("\n\U0001F525 Please enter the name of the text file you wish to cleanse of its sins and join in union with another cleansed file\U0001F525 \n")
+
+            lines = intake_name(filename)
+            
+            
+        case 4:
             print("\n\U0001F525 Fare thee well, Hero \U0001F525\n")
             break    
         
