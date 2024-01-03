@@ -35,36 +35,37 @@ def new_txt(new_name : str):
             new_name = input("\nInvalid File name. Try again.\n")
             
 def file_amalgam(lines):
-    '''Function to intake a filename and open the file in read mode. If the file does not exist the function
-    will be repeatedly ask for a valid filename. It returns a list, with each element being a line from the file'''
+    '''Function to intake a filename and open the file in append mode. If the file does not exist the function
+    will be repeatedly ask for a valid filename.'''
     
     while True:
         try:
-            destination = str(input("\n\U0001F525 Please enter the name of the new text file you wish to add this file to \U0001F525 \n(This will overwrite any existing file of the same name) \n"))
-        except FileNotFoundError:
-            #DERV YOU'RE WORKING ON THIS BIT
             
-    while True:
-        try:
-            readfile = open(filename, "r")
-            lines = readfile.readlines()
-            readfile.close()
-            return lines
+            destination = open(input("\n\U0001F525 Please enter the name of the new text file you wish to add this file to \U0001F525 \n(This will overwrite any existing file of the same name) \n"), "a")
+            slayer(destination, lines)
+            
+            return
         except FileNotFoundError:
-            filename = input("\nFile not found, please enter the name of a file within this directory \n")
+            
+            destination = open(input("\n\U0001F525 File Not Found. Please enter the name of the new text file you wish to add this file to \U0001F525 \n(This will overwrite any existing file of the same name) \n"), "a")
     
             
 def slayer(newfile, lines):
     '''Function to intake a file object and a list of elements making of the contents of a previously read file.
     Writes the contents of the list to the new file, unless a line contains a keyphrase that is meant to be excluded
     Returns the number of links removed'''
+    
     key = '%LOCAL_FILE%'
+    key2 = 'remnote-user'
 
     link_count = 0
 
     for line in lines:
         if key not in str(line):
-            newfile.write(str(line))
+            if key2 not in str(line):
+                newfile.write(str(line))
+            else:
+                link_count += 1
         else:
             link_count += 1
         

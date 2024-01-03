@@ -1,0 +1,2161 @@
+- What is Data? 
+    - 
+    - From a human perspective: 
+        - Data is a collection of values in a format that a human can conveniently read. Non-structured data cannot usually be read by machines
+        - 
+    - From a machine perspective: 
+        - Data is a collection of values in a format that can be automatically read and processed by a computer such as
+            - CSV
+            - JSON
+            - XML
+            - 
+        - Machine-readable data must be structured data
+        - 
+    - 
+- What is information? 
+    - 
+    - Information: Data that has been given meaning by the way it is structured 
+    - We can create, manage and manipulate the structure
+        - Using and building software tools
+        - In order to provide information both useful and understandable to humans
+        - 
+    - 
+- What is a database? 
+    - 
+    - Database: is a machine-readable structured collection of data organised to model some aspect of reality: typically available to a community of users, possibly with different requirements
+
+- What have we learned so far? 
+    - 
+    - Database: 
+        - 
+        - An organised, machine-readable collection of symbols which can be interpreted by the computer
+        - It is also machine-updatable: the database is a collection of variables
+        - Variables have a datatype which determines the type of data that can be stored in it
+        - Its organisation/structure depends on the model being used. We are using the relational model.
+        - A database is typically available to a community of users with possibly varying requirements
+        - 
+    - Relational Database: 
+        - A collection of related records called rows (consisting of variables called columns), organised into tables  
+        - Tables are connected based on common variables 
+        - Records are related based on having common values for these common variables 
+        - 
+    - Database Management System (DBMS) 
+        - System software that allows us to manage the content/information in a database
+        - 
+    - 
+- Further Learning: 
+    - 
+    - How do we instruct the DBMS? 
+        - 
+        - SQL (Structured Query Language)
+        - Includes:
+            - Data Manipulation Language (DML)
+            - Data Definition Language (DDL)
+            - 
+        - Before we can manipulate data, we need to: 
+            - 
+            - Define the data structure
+            - Populate the data adhering to the constraints (outlined in the metadata)
+            - SQL is case-insensitive. To the DBMS, CREATE or create means the same thing
+            - However, there is a need to work on some convention in case other developers need to read your code
+            - 
+            - To practice this, we will write: 
+                - 
+                - SQL keywords in uppercase letters
+                - Data type in uppercase letters
+                - Table names and properties in lowercase letters
+                - 
+            - 
+        - 
+    - Data Definition Language(DDL): 
+        - 
+        - The syntax for creating, editing and deleting structures such as:
+            - Databases
+            - Tables
+            - Views
+            - Constraints
+            - Users
+            - Privileges
+            - 
+            - %LOCAL_FILE%pZoNNAMR1EvbnlgkyCzxCYmmTSQP7kW62lR7J92AlJn6iSdpI4FIoJXl7YhT6IT4YoXg7npXWCQjYXI52pG7FbhBSGNiTBeV5dgW1xxCa0d2BqbbB8GSdD-DV4JKb_5s.png
+            - 
+        - 
+    - Data Manipulation Language: 
+        - 
+        - Syntax for executing queries, updating, inserting and deleting records
+        - Used to populate the databases and also to remove data already there
+        - 
+    - Communicating with the DBMS 
+        - 
+        - A DBMS responds to imperatives (statements) given by application programs, custom written or general purpose, executing on behalf of users
+        - Imperatives are written in the database language of the DBMS 
+        - Responses include completion codes, messages and results of queries
+        - 
+    - Tables: 
+        - 
+        - Fundamental Structure in the relational model 
+        - Organised collection of symbols 
+        - Organised into rows and columns
+        - 
+        - Creating a table: 
+            - 
+            - A table is an object that can store data in an SQL database
+            - You will create a table for each 'thing' you want to store data about
+            - 
+            - When you create a table you must specify:
+                - the table name
+                - the name of each column
+                - the data type of each column
+                - the size of each column
+                - any constraints on the data that each column can contain
+                - 
+            - Process: 
+                - Sometimes, we want to create a table that already exists
+                - If you are sure you do not need a table with that name, use the DROP TABLE DDL statement before creating the new table
+                - In Postgres, it is good practice to use DROP TABLE IF EXISTS , as this checks if the table exists before trying to drop it.
+                - It is good practice to drop tables in the opposite order they were created
+                - Do not forget to comment your code to make it clearer.
+                - 
+                - -- Double dash is used for single lines
+/* is used for multi-line */  
+                - 
+            - 
+        - 
+    - Metadata - Datatypes in PostgreSQL 
+        - 
+        - Datatypes
+            - Data Type
+                - SQL code
+                - Description
+            - INTEGER
+                - INTEGER or INT
+                - A 32-bit signed integer
+            - BIGINT
+                - BIGINT
+                - A 64-bit signed integer
+            - VARCHAR(n)
+                - VARCHAR(n)
+                - Variable-length character string without a maximum length
+            - TIMESTAMP
+                - TIMESTAMP
+                - Date and time including fractional seconds
+            - DATE
+                - DATE
+                - Date without a time component
+            - BOOLEAN
+                - BOOLEAN
+                - Represents true or false values
+            - DECIMAL(p, s)
+                - DECIMAL(p, s) or NUMERIC(p,s)
+                - Fixed point number with 'p' total digits and 's' fractional digits
+        - 
+    - Naming tables: 
+        - 
+        - The table name: 
+            - 
+            - Call your table a name that is short and sensible
+            - Reflect the names in your design
+            - 
+        - Table names and column names:
+            - 
+            - Must begin with a letter
+            - Must be 1-30 characters long
+            - Must contain characters between A-Z, a-z, 0-9, _, $, and # (no spaces, hyphens or quotation marks)
+            - Must not duplicate the name of another object owned by the same user
+            - Must not be a PostgreSQL server reserved word
+            - 
+        - 
+    - Key Constraints - Primary key: 
+        - 
+        - Column or set of columns that uniquely identify a specific instance of the thing a table represents
+        - Every entity in the data model must have a primary key whose values uniquely identify instances of the entity
+        - The primary key enforces entity integrity by uniquely identifying entity instances
+        - 
+        - %LOCAL_FILE%FgIED8SWFVeD6RcA273BTuZ1Evd6cm12QCizdXQPx7IBVP45A4rWpJ5DjmBXFjvudJIb8qOtIrawq85ngtfYbwbyJdiac_-oEEMJTx2B966JQAExdYBJayarPOUZylPA.png
+        - 
+        - To qualify as a primary key, a column must have the following properties: 
+            - 
+            - It must have a non-null value for every instance of the entity
+            - The value must be unique for each instance of an entity
+            - The values must not change or become null during the life of each entity instance
+            - 
+            - How to define a primary key:
+            - CREATE TABLE Actor(
+    actorID SERIAL PRIMARY KEY,
+    actorName VARCHAR(30)
+ );
+            - 
+            - 
+        - Compound primary key:
+            - 
+            - Suppose we decide that the combination of MovieID and ActorID is unique
+            - We need a Compound Primary Key
+            - CREATE TABLE movieCast
+(
+    movieID SERIAL,
+    actorID SERIAL,
+    rolePlayed VARCHAR(50),
+    PRIMARY KEY (movieID, actorID)
+);
+            - 
+            - Compound primary keys can only be created at table level
+            - 
+        - Defining Table Relationships: 
+            - 
+            - Foreign Keys define relationships between tables 
+            - A foreign key is a constraint that establishes a link between two tables by ensuring that the values in one table's columns match the values in one table's primary key columns. This happens when a column of one table is the same as the primary key of another 
+            - We need to include something in our create statement to indicate which attribute is the foreign key
+            - 
+        - Foreign Keys: 
+            - 
+            - To declare a foreign key between two tables, we declare the foreign key at a table level and state from which table we are retrieving the data
+            - 
+            - CREATE TABLE movieCast(
+    movieID SERIAL,
+    actorID SERIAL,
+    rolePlayed VARCHAR(50),
+    CONSTRAINT cast_actor_fk FOREIGN KEY (actorId) REFERENCES actors
+(actorID),
+    CONSTRAINT cast_movie_fk FOREIGN KEY (movieId) REFERENCES movies
+(movieID),
+    PRIMARY KEY (movieID, actorID));
+            - 
+            - Foreign Key: Defines the column in the child table at the table-constraint level
+            - References: Identifies the table and column in the parent table
+            - 
+            - Foreign Keys provide a method for maintaining integrity in the data (called referential integrity) and navigating between different instances of an entity
+            - Every relationship between tables must be supported by a foreign key.
+            - Foreign key attributes are indicated by the notation (FK) beside them on database models
+            - 
+        - The order of creation: 
+            - 
+            - Create tables that have no dependencies
+            - Create tables that depend on those tables but only have one dependency
+            - Create tables with multiple dependencies
+            - 
+        - Drop table: 
+            - 
+            - All data and structure in the table are deleted  
+            - Any pending transaction is committed
+            - All indexes are dropped
+            - All constraints are dropped
+            - Once the table is dropped, there's no turning back
+            - 
+        - Drop table - Order: 
+            - 
+            - The order used to drop the table also matters
+            - We should drop tables in the opposite order they were created 
+            - If we try to drop a table that contains a column that is a foreign key in another existing table, we get an error
+            - First, delete tables with multiple dependencies, then tables with no dependencies
+            - When we create a set of SQL in a script to create and insert data, we include statements to drop the tables at the start of the script
+            - This will make sure our script clears out any old versions of our tables
+            - If no tables exist, we will get an error message
+            - You can also use DROP TABLE IF EXISTS to skip that message
+
+- Inserting Data - What to consider? 
+    - 
+    - The format of tables:
+        - i.e. the columns and their constraints
+        - Be aware: all VARCHAR, TEXT, DATE and TIMESTAMP fields must have their values surrounded by single quotes when inserted
+        - 
+    - You can do either:
+        - A full INSERT: This inserts a value for every column in the table
+        - A partial INSERT: This accepts some values but accepts the default for other columns
+        - 
+    - 
+- Adding a new row: 
+    - 
+    - INSERT INTO table(column1, column2, ... column_n) VALUES (expression1, expression2, ... expression_n);
+ 
+    - 
+    - users
+        - userid(PK)
+            - 001
+        - username
+            - john
+        - usersurname
+            - smith
+    - 
+    - Without Column Specification: 
+        - 
+        - If we do not include a column list, the DBMS assumes you are inserting data in the column order it expects. This is useful if you know the order and are filling out the attributes
+            - INSERT INTO users VALUES(001, 'John', 'SMITH');
+        - 
+        - If userID was SERIAL, we would need to list the columns before inserting data, so we can skip the userID type column
+            - INSERT INTO users(username, usersurname) values('John', 'Smith');
+        - 
+    - 
+- Possible errors: 
+    - 
+    - Constraint violations: e.g. adding a duplicate in a primary key
+    - Connected tables: e.g. an incorrect order of creation
+    - 
+    - 
+- Order of Insertion: 
+    - 
+    - The order of insertion follows the order of creation 
+    - Always follow the order used to create the tables
+    - 
+- Transaction and SQL: 
+    - 
+    - A transaction is a logical work unit containing one or more SQL statements. The keywords used are DML commands
+    - The effects of all the SQL statements can be either all committed (applied to the database) or all rolled back (undone from the database)
+    - 
+    - %LOCAL_FILE%bHQSh860vLh3jLBX2lrMHhjiG83dq7vvfQaj-8RjxnfXMYQJPlhHGwFGjEMyrVkv_RXNwjVpXyq7kxnAMVJeg2XWEXNKvMhC_oBv0UDv--p7tUuYwHVsDOu9jkRCXwA1.png 
+    - 
+    - The SELECT statement reads data from the database but doesn't change anything
+    - The other three DML statements (INSERT, UPDATE, DELETE ) do change the data
+    - Because they change the data, the DBMS becomes defensive when it receives one of these
+    - That means it will not allow other database users to change this data until the statements are complete
+    - As soon as Oracle sees an INSERT, UPDATE or DELETE , it starts a transaction
+    - It locks up all rows that are subjected to INSERT, UPDATE or DELETE 
+    - The transaction continues until it receives either a COMMITT  or a ROLLBACK 
+    - Transactions are used to group one or more SQL statements into a single unit of work, ensuring that either all the statements in the transaction are executed successfully or none of them are
+    - 
+- Commit: 
+    - 
+    - Uncommitted data cannot be seen by other sessions
+    - 
+    - If I open a table in one SQL connection and add rows without a commit command, then open a second SQL connection to the same database schema:
+        - I won't be able to see the inserts in the second connection until they are committed in the first one
+        - If I delete rows in the second one, the first one will still see them until the deletes are committed
+        - 
+    - 
+- Alter table: 
+    - 
+    - Once tables are created, they can be modified using the ALTER TABLE statement to:
+        - Add a new column
+        - Modify an existing column
+        - Define a default value for the new column
+        - Drop a column
+        - Add a constraint to a table
+        - 
+    - ALTER TABLE movies ADD COLUMN genre VARCHAR(20);
+    - ALTER TABLE movies DROP COLUMN director;
+    - 
+- Updating Existing Records: 
+    - 
+    - The keyword UPDATE can update fields in one or more records in a table. However, only one table can be updated at a time.
+    - UPDATE tablename
+SET field1 = new_value1, field2 = new_value2
+WHERE search condition; 
+    - 
+    - All rows where the condition os true have the columns set to the given values
+    - If no condition is given, all rows are changed
+    - 
+- Accessing data: 
+    - 
+    - Where is the data in the database?
+    - What is the database structure?
+    - How is each row identified uniquely?
+    - What items of data do you need?
+    - You need to know the constraints. 
+    - 
+- SELECT statement: 
+    - 
+    - Most powerful and complex of SQL statements. Basic structure:
+        - SELECT columns
+FROM table
+WHERE condition; 
+        - 
+    - SELECT all: 
+        - To select all rows and columns from a table called movies, we can run the following statement
+        - SELECT * FROM movies;
+        - 
+        - The * denotes all available columns
+        - 
+    - SELECT specific data - Projection: 
+        - 
+        - Projection is when you pick a single column from the table
+            - SELECT movieTitle FROM movies; 
+            - 
+        - 
+    - The WHERE clause: 
+        - 
+        - The WHERE clause is related to a condition. For data selection, we use the WHERE clause to retrieve data matching some criteria
+        - SELECT * FROM movies WHERE genre = 'Drama';
+        - 
+    - 
+- Basic operations to build expressions: 
+    - 
+    - Building Expressions:
+        - Operator
+            - Possible operations
+            - Syntax
+        - Comparisons
+            - <, =, >, <=, >=, <> (not equal to)
+            - Expression { < | = | <= | >= | <> } Expression
+
+        - AND, OR, NOT
+            - Evaluate any operands that are boolean expressions
+            - {Expression and Expression | Expression | Expression OR Expression | NOT Expression}
+    - 
+    - Operator Examples
+        - Operator
+            - Explanation
+            - Syntax
+        - BETWEEN
+            - Tests whether the first operand is between the second and third operands. The second operand must be less than the third operand. Applicable only to types which <= and >= can be applied to.
+            - Expression [NOT] BETWEEN Expression AND Expression
+        - IN
+            - The IN operator allows you to specify multiple values in a WHERE clause. The IN operator is shorthand for multiple OR conditions
+            - {Expression [NOT] IN TableSubquery}
+        - LIKE
+            - The LIKE operator is used in a WHERE clause to search for a specified pattern in a column. The percent sign (%) represents zero to multiple characters. The underscore (_) represents one single character
+            - CharacterExpression [NOT] LIKE CharacterExpression WithWildCard [ESCAPE 'escapeCharacter']
+    - 
+- Changing Output: 
+    - 
+    - Once we run the SELECT statement, the output will use the attribute names decided during the DDL implementation. You can change it so the user can better view the selected data
+    - 
+    - 
+- Techniques: 
+    - 
+    - Projection - Filtering out unwanted columns
+    - Restriction - Filtering out unwanted rows using conditions
+    - Renaming - Using alternate title
+
+- Constraints: 
+    - 
+    - A table is an object that can store data in an oracle database.
+    - You will create a table for each entity in your physical data model
+    - The attributes of the entity become the columns of the table
+    - 
+    - When you create a table, you must specify: 
+        - 
+        - The table name
+        - The name of each column
+        - The data type of each column and the size of each column
+        - Any constraints on the data that each column can contain
+        - 
+    - Constraints are rules that data must follow to belong to or be removed from a given entity
+    - Constraints enforce rules at entity level
+    - 
+- Key constraints: 
+    - 
+    - Primary Key: 
+        - 
+        - Constraints: Entity Integrity 
+        - To qualify as a primary key, a column must have the following properties
+            - It must have a non-null value for each instance of the entity
+            - The value must be unique for each instance of an entity
+            - The values must not change or become null during the life of each entity instance
+            - 
+            - Create table Actor(
+    actorID NUMBER(4) PRIMARY KEY,
+    actorName VARCHAR(50)
+); 
+        - 
+    - Foreign Key: 
+        - 
+        - Constraints: Referential Integrity 
+        - When one table needs to relate to another table, you must include a common field and tell SQL that the tables are linked
+        - The common field will be the primary key in one table
+        - The field in the related table is referred to as the foreign key 
+        - The foreign key can then be used as a primary key to access the record in the related table when needed
+        - 
+        - It also helps enforce data integrity:
+            - A foreign key value must match an existing value in the parent table or be NULL.
+            - Therefore it is not possible to insert invalid data into the foreign key field
+            - 
+        - Foreign keys are based on data values and are purely logical, rather than physical, pointers
+        - 
+        - CREATE TABLE Orders (
+    OrderID int NOT NULL PRIMARY KEY,
+    OrderNumber int NOT NULL,
+    PersonID INT FOREIGN KEY REFERENCES Persons(PersonID)
+); 
+        - 
+        - Syntax: 
+            - 
+            - FOREIGN KEY: Defines the column in the child table at the table-constraint level
+            - REFERENCES: Identifies the table and column in the parent table
+            - Additional things you can add to the constraint:
+                - ON DELETE CASCADE: Deletes the dependent rows in the child table when a row in the parent table is deleted
+                - ON DELETE SET NULL: Converts dependent foreign key values to null
+    - 
+- Creating Tables: 
+    - 
+    - Decide on the name: 
+        - Use concepts from the Customer - follow your logical ERD 
+        - 
+        - Table names and column names: 
+            - Must begin with a letter
+            - Must be 1-30 characters long
+            - Can contain only A-Z, a-z, 0-9, _, $ and #
+            - Cannot be a duplicate of another object owned by the same user
+            - Must not be an oracle reserved word
+            - Cannot contain spaces or hyphens
+            - 
+        - 
+    - Define the columns and their types 
+    - Identify a primary key: 
+        - Once you've selected the attributes (columns) you need to decide which of those will be the primary key - or if a new primary key needs to be created
+        - 
+    - Add a foreign key to facilitate the relationships between tables
+    - Add any additional value constraints 
+    - 
+- Value constraints: 
+    - 
+    - Define: 
+        - If NULL values are disallowed
+        - If UNIQUE values are required
+        - If only certain sets of values are allowed in a column
+        - 
+    - Enforce DOMAIN INTEGRITY in addition to the datatype
+    - 
+- NULL and NOT NULL 
+    - 
+    - What is NULL ?
+        - NULL is a non-value
+        - It is not zero
+        - It is not blank
+        - 
+    - NULL is a special name to denote a valueless column in a row
+    - If the column must contain a non-null value, the constraint NOT NULL should be put on it
+        - This will prevent a user from adding a row that has no value for this column
+        - E.g. There is no sense in adding a student without a name
+        - There is no sense in adding a stock item without a description
+        - 
+    - The default is NULL , they will be allowed until NOT NULL is specified
+    - 
+- UNIQUE 
+    - 
+    - UNIQUE  allows the column value to be checked against all other values in that column in the table
+    - This constraint can be used even if the column allows NULL 
+    - 
+- CHECK 
+    - 
+    - CHECK defines a condition that each row must satisfy
+    - This allows the column value to be checked:
+        - against a range of values (e.g. value > value, between value and value)
+        - in a selection of values (e.g. IN ('Monday', 'Tuesday', 'Wednesday')
+        - There is a way of doing more extensive checking but CHECK protects our table from having a lot of bad data
+        - 
+    - A single column can have multiple CHECK constraints that refer to the column in its definition
+    - 
+- Comparison Conditions: 
+    - 
+    - Conditions
+        - Operator
+            - Meaning
+        - =
+            - Equal to
+        - >
+            - Greater than
+        - ≥
+            - Greater than or equal to
+        - <
+            - Less than
+        - <=
+            - Less than or equal to
+        - < >
+            - Not equal to
+        - BETWEEN ... AND ...
+            - Between two values (inclusive)
+        - IN(set)
+            - Match any of a list of values
+        - LIKE
+            - Match a character pattern
+        - IS NULL
+            - Is a null value
+    - 
+    - BETWEEN condition: 
+        - 
+        - Use the BETWEEN condition to restrict values to a particular range
+        - CREATE TABLE employees
+(
+    employee_ID NUMBER(6),
+    last_name VARCHAR2(25),
+    email VARCHAR2(25),
+    salary NUMBER(8, 2),
+    commission_pct(2, 2),
+    hire DATE NOT NULL,
+    department_id NUMBER(4),
+    CONSTRAINT emp_dept_fk FOREIGN KEY (department_ID) REFERENCES (department_ID),
+    CONSTRAINT emp_salary CHECK(salary < 80000)
+); 
+        - 
+    - IN operator:
+        - 
+        - Use the IN membership condition to test for values in a list
+        - CREATE TABLE employees
+(
+    employee_ID NUMBER(6),
+    last_name VARCHAR2(25),
+    email VARCHAR2(25),
+    salary NUMBER(8, 2),
+    commission_pct(2, 2),
+    hire DATE NOT NULL,
+    department_id NUMBER(4),
+    CONSTRAINT emp_dept_fk FOREIGN KEY (department_ID) REFERENCES (department_ID),
+    CONSTRAINT emp_salary CHECK(salary IN 80000, 90000, 100000)
+); 
+        - 
+    - LIKE operator:
+        - 
+        - Use the LIKE condition to pattern match valid string values
+        - Conditions can contain either literal characters or numbers
+            - % denotes zero or many characters
+            - _ denotes one character
+            - 
+        - 
+        - CREATE TABLE employees(
+    employee_ID NUMBER(6),
+    last_name VARCHAR2(25),
+    email VARCHAR2(25),
+    salary NUMBER(8, 2),
+    commission_pct(2, 2),
+    hire DATE NOT NULL,
+    department_id NUMBER(4),
+    CONSTRAINT emp_dept_fk FOREIGN KEY (department_ID) REFERENCES (department_ID),
+    CONSTRAINT emp_email CHECK(email like '%@')
+); 
+        - 
+    - 
+- LOGICAL condition: 
+    - 
+    - Conditions:
+        - Operator
+            - Meaning
+        - AND 
+            - Returns TRUE if both component conditions are true
+        - OR 
+            - Returns TRUE if either component condition is true
+        - NOT 
+            - Returns TRUE if the statement is false
+    - 
+- Rules of Precedence: 
+    - 
+    - Precedence
+        - Operator
+            - Meaning
+        - 1
+            - Arithmetic Operators
+        - 2
+            - Concatenation
+        - 3
+            - Comparison
+        - 4
+            - IS [NOT] NULL, LIKE, [NOT] IN 
+        - 5
+            - [NOT] BETWEEN 
+        - 6
+            - Not equal to
+        - 7
+            - NOT logical condition
+        - 8
+            - AND logical condition
+        - 9
+            - OR logical condition
+    - 
+    - You can use parentheses to override rules of precedence
+    - 
+- Default option: 
+    - 
+    - Specify a default value for a column during an insert, if no value is supplied by a user
+    - Literal values, expressions or SQL functions are legal values
+    - Another column's name or a pseudocolumn are illegal values
+    - The default data type must match the column data type
+
+- Introduction to ERDs and normalisation: 
+    - 
+    - Data Models: 
+        - 
+        - https://remnote-user-data.s3.amazonaws.com/Lk_GEcTsroXr_D2Xs1hjMrv5PmycDPxgW1TbnCJq3pgdQivqvjIYfRGK6i0ikM8duy1HgNVVurVIMuWQjNohSuhX3jMPgXAkFq4za5S6bc4SsolZzdwH0u_dxg1f5PAD.png 
+        - 
+    - Data Design - starts at the conceptual level: 
+        - 
+        - Figuring out what information purposes the database is to serve, such as:
+            - 
+            - What questions do the users need to be able to ask of the database?
+            - What pieces of data make up this information?
+            - What type of data is it?
+            - What things do these pieces of data describe?
+            - How the things we want to store data about can be linked together to provide the information needed?
+            - 
+        - The result is the Logical Data Model 
+        - 
+    - Entity Relationship Diagram (ERD): 
+        - 
+        - An Entity Relationship Diagram (ERD) is a type of diagram that lets you see how different entities (e.g. people, customers or other objects) relate to each other in an application or a database
+        - 
+    - ERD components: 
+        - 
+        - An ERD is made up of many different components:
+            - Entity
+            - Attribute
+            - Relationship
+            - 
+        - Entity: 
+            - 
+            - An entity is an object of interest to the organisation that is modelling it.
+            - Something about which data needs to be stored to fulfil some function
+            - Possible Entities:
+                - Obvious physical things
+                - Persons, places, objects
+                - Transactions or events
+                - Orders, Sales, Hospital Admissions, reservation
+                - Concepts
+                - Plan, Schedule, Account, Course, Fund
+                - 
+            - 
+        - Attribute: 
+            - 
+            - An entity is represented by a set of attributes, which are descriptive properties possessed by all members of an entity set 
+            - An attribute of an entity can be:
+                - pieces of data we want to store about an entity
+                - a descriptive property or characteristic of an entity
+                - 
+            - We only want to record attributes that are of significance to the organisation
+            - The value of an attribute is the value of that attribute for a particular entity occurence
+            - 
+        - Relationship: 
+            - 
+            - A relationship in an ERD defines how two entities are related to each other. There are several types of relationships that are represented on an ERD
+            - One to one: One record of an entity is directly related to one or more records of an entity
+            - One to many: One record of an entity is related to one or more records of another entity
+            - Many to many: Many records of one entity can be related to many records of another entity
+            - %LOCAL_FILE%myRAnv4YVYdGQvTnksvqIj2bqJf2nfTHn91tMKouGOMzglbFVzkN64uYnABrvOT4TZ6HLd7xfkD83rR-VsuOhVkPVuNEMXRKZuPMblCQcf_0F6JEBuJ3z0ppqCbDlVzG.png 
+            - 
+        - 
+    - Instance: 
+        - 
+        - An instance of an entity is a single occurrence of an entity 
+        - It describes, for example, one particular customer or product
+        - An entity type is described just once (using metadata) in a database
+        - 
+    - Structures and Relationships: 
+        - 
+        - When building an ERD, we are defining the structure of entities and the pattern of relationships between them
+        - When the structure and pattern in a physical database are implemented, it can be populated with instances of the entity 
+        - It is implementation independent of the DBMS 
+        - The same conceptual model can be implemented in any database
+        - There may be small implementation differences but the structure and relationships will be the same
+        - An ERD can be drawn at three different levels:
+            - Conceptual  
+            - Logical 
+            - Physical 
+            - 
+        - 
+    - Conceptual model: 
+        - 
+        - A high level representation of the model showing the main entities mapped from design requirements 
+        - https://remnote-user-data.s3.amazonaws.com/Wt6fdw7vb7tIUGAcYn_Y31t_eJepAp-tKfoO5mLV0JacX-rHiTfO9LL39n3_-znIEYc-mXKV1xVDIHhPxRPNzn-BGrIWxE-8aa-crUWaj-bmqFav_woZymckCM7jjTgX.png
+        - 
+    - Logical model: 
+        - 
+        - A logical model is a more detailed version of a conceptual data model. Attributes are added to each entity and further entity can be added that represent areas to capture data in the system.
+        - https://remnote-user-data.s3.amazonaws.com/IfEqYZ9dp6dHvlzSdWNFeQQ6OnGOHmwtt4v8YSFdt7HziHjCZyUr6P3-BACfk1qsuuBU31u-mBMURLQPNCQEMxHrOYleA2tAOZg-aXajd0weeeqUj8-ZhkRlBjPwOtBv.png
+        - 
+    - Physical model: 
+        - 
+        - The physical model is the most detailed data model in this process. It defines a set of tables and columns and how they relate to each other. It includes primary and foreign keys, as well as the data types for each column
+        - https://remnote-user-data.s3.amazonaws.com/sQpPz6hWIE89QpdtSMxqSC_2r-oYh9BtgJpk7O4U7q4-hWHZWfLeqdv-7RE3KhIojJsN2ULi3M1zshOlyqva0UcEZOl1evSBj94Q3vLMJ-TT_CzXyX7uVfpT6tITnVLv.png 
+        - 
+        - Building the model right: 
+            - 
+            - Translating your logical model into the relational model
+            - Understanding the rules
+            - Eliminating redundancy
+            - 
+        - 
+    - Data Redundancy: 
+        - 
+        - Duplication of data in separate tables
+        - Leads to waste and potential inconsistency
+        - How to overcome this?
+        - 
+    - Key constraints - Foreign key: 
+        - 
+        - An attribute of one table that represents the relationship between this table and another
+        - The attribute is the primary key of the other table
+        - Foreign keys provide a method of maintaining integrity in the data (called referential integrity) and for navigating between different instances of an entity 
+        - Every relationship between tables must be supported by a foreign key 
+        - Foreign key attributes are indicated by the notation "FK" beside them on database models
+        - 
+    - Normalisation: 
+        - 
+        - A formal process involves reflecting on tables, attributes and relationships to be created when developing a database most efficiently
+        - The objective of normalisation is "to create relations where every dependency is on the key, the whole key and nothing but the key".
+        - Normalisation reduces data redundancy and increases data integrity, making it easier to save space on the server and maintain and access the data
+        - 
+    - Data anomalies: 
+        - 
+        - Normalisation came as a solution to data anomalies, like data redundancy, which takes memory space and makes it hard to manage the data
+        - There are three types of anomalies:
+            - Update Anomalies: happen when the data is stored redundantly in same table and someone, when trying to update the data, misses some of the values.
+            - Insertion Anomalies: this happens when inserting vital data into the database is not possible because other data is not there 
+            - Deletion Anomalies: this happens when the deletion of unwanted information causes desired information to be deleted as well
+            - 
+        - 
+    - First Normal Form (1NF): 
+        - 
+        - Each cell should contain a single value
+        - All values should be of the same type
+        - Each column should be uniquely identified
+        - 
+    - Second Normal Form (2NF): 
+        - 
+        - For a table to be in 2NF:
+            - The database is in its first normal form
+            - Every attribute should be directly dependent on a primary key
+            - 
+        - 
+    - Third Normal Form (3NF): 
+        - 
+        - For a table to be in 3NF, there are two requirements
+            - The table should be in second normal form
+            - All attributes should be determined on the primary key and no other column
+            - This means no attribute should be transitively dependent on the primary key
+            - That happens when an attribute is no not directly dependent on the primary key but of another non-key attribute
+            - 
+        - 
+    - Normalisation: 
+        - 
+        - There are up to six normal forms available. It is recommended we try to normalise the database up to the 3NF.
+        - We can keep dividing the tables more and more but we need to reflect on how necessary the divisions are.
+        - Database normalisation is a process used for data modelling or database creation, where you organise your data and tables so they can be added and updated efficiently
+        - It makes the database more efficient 
+        - Prevents the same data from being stored in more than one place (Insert anomaly)
+        - Prevents data updates from being made to some data but not others (Update anomaly)
+        - Prevents data not being deleted when it is supposed to be or data from being lost when it is not supposed to be (Delete anomaly)
+        - Ensures the data is accurate
+        - Reduces the storage space that a database takes up
+        - Ensures the queries on a database run as fast as possible
+        - 
+    - What are the normal forms? 
+        - 
+        - The process of normalisation involves applying rules to a set of data. Each of these rules transforms the data to a certain structure, called a normal form
+        - There are three main normal forms that you should consider:
+            - Whenever the first rule is applied, the data is in "first normal form"
+            - The second rule is applied, the data is in "second normal form"
+            - The third rule is then applied and the data is in "third normal form"
+            - 
+            - 
+        - 
+    - Normalisation Application: 
+        - 
+        - 1NF: 
+            - To apply 1NF to a database, we look at each table and ask "Does the combination of all columns make a unique row every single time?"
+            - If repeating groups are present, they have to be broken down in individual's record and a primary key has to be assigned
+            - 
+        - 2NF: 
+            - 
+            - The rule of second normal form on a database can be described as:
+                - Fulfilling the requirements of first normal form
+                - Each non-key attribute must be functionally dependent on the primary key
+                - 
+            - This means that the 1NF rules have been applied. It also means that each field that is not the primary key is determined by the primary key, so it is specific to that record. This is functional dependency 
+            - A partial dependency is between a non-key field and a field that is part of the primary key 
+            - In 2NF, the starting table most likely has to be divided into smaller tables so that every field in each table depends on the full primary key of that table. In this way, the partial dependencies are removed
+            - 
+        - 3NF: 
+            - 
+            - Third normal form is the final stage of the most common normalisation process. The rules are:
+                - Fulfills the requirements of the second normal form
+                - Has no transitive dependency (occurs when one non-prime attribute is dependent on another non-prime value
+                - 
+            - In 3NF, we need to ensure that every attribute that is not the primary key must depend on the primary key and the primary key only
+            - 
+        - 
+    - Process of data normalisation: 
+        - 
+        - ELIMINATE REPEATING GROUPS: Make a separate table for each set of related attributes and give each table a primary key
+        - ELIMINATE REDUNDANT DATA: If an attribute/column depends on only part of a multi-valued key, move it to a separate table
+        - ELIMINATE COLUMNS NOT DEPENDENT ON KEY: If attributes/columns do not contribute to a description of a key, move them to a separate table. Everything should depend on the key, the whole key and nothing but the key.
+
+- Functions in SQL: 
+    - 
+    - Functions are pre-built pieces of functionality that we can perform on our databases quickly and easily
+    - 
+    - Functions allow us to: 
+        - Perform calculations on data
+        - Modify individual data items
+        - Manipulate output for groups of rows
+        - Format dates and numbers for display
+        - Convert column data types
+        - 
+    - Functions are a very powerful feature of SQL
+    - SQL functions sometimes take arguments and always return a value
+    - SQL has a long list of built-in functions
+    - 
+    - https://remnote-user-data.s3.amazonaws.com/i1mIW8xarjIYiz22eIiooNWQYR1J69b9BGQ-MMTVsZ7rz9_gpMuPWodBnNiJlQcATov8ZrdkyyP_Vag7oMbOusvXZxFbdDAZPtwuLbTTYrWQdnOixARRjTdG6PYHrOzm.png
+    - 
+    - 
+- Types of SQL functions:
+    - 
+    - https://remnote-user-data.s3.amazonaws.com/t2ddrvp5FaEcsCGkwvVHCF4txhZ2Vjq7M9TvooiE7dkZchSCaBbptUUgbbhhlljHSIMnW1V47kjKsCQ5AqJ6ARVTVW6J4zKmyXOULmhdjA6R5ToIuRn8S6uJffUsgxi5.png 
+    - 
+    - Single-row functions: 
+        - 
+        - Manipulate data items
+        - Accesses and works on each row and returns a value per row
+        - May return a value of a data type different to that referenced
+        - Can be nested
+        - Accepts arguments that that can be a column or expression
+        - function_name[(arg1, arg2, . . .)]
+        - 
+    - An argument can be one of the following: 
+        - User-supplied constant
+        - Column name
+        - Expression
+        - 
+    - Can be used in: 
+        - Select
+        - Where
+        - Order by
+        - Constraint
+        - 
+    - Types of single row functions: 
+        - 
+        - Character: Accepts character input, returns a single value, can return both character and numeric values
+        - Number: Accepts numeric input, returns a single numeric value
+        - Date: Operates on a date data type, returns a value of date data type
+        - Conversion: Convert a value from one data type to another
+        - General: Handles NULL values or selection of return value based on choices
+    - 
+- Character functions: 
+    - 
+    - Case-manipulation functions: 
+        - 
+        - LOWER 
+        - UPPER 
+        - INITCAP 
+        - 
+        - Examples:
+            - Function
+                - Result
+            - SELECT LOWER(fullname) FROM Clients; 
+                - joe blogs
+            - SELECT UPPER(fullname) FROM Clients; 
+                - JOE BLOGS
+            - SELECT INITCAP(fullname) FROM CLIENTS; 
+                - Joe Blogs
+        - 
+    - Character functions: 
+        - 
+        - Examples:
+            - Function
+                - Result
+                - Objective
+            - CONCAT('Hello', 'World'); 
+                - HelloWorld
+                - Concatenate
+            - SUBSTR('HelloWorld', 1, 5); 
+                - Hello
+                - Extract
+            - LENGTH('HelloWorld'); 
+                - 10
+                - Check Length
+            - POSITION('W' IN 'HelloWorld'); 
+                - 6
+                - Find position of first occurrence
+            - LPAD('tech', 8, '0'); 
+                - 0000tech
+                - Pads the left
+            - RPAD('tech', 8, '0'); 
+                - tech0000
+                - Pads the right
+            - REPLACE('JACK and JUE', 'J', 'BL'); 
+                - BLACK and BLUE 
+                - Replace Character
+            - TRIM('H' FROM 'HelloWorld'); 
+                - elloWorld
+                - Trims the string
+        - 
+    - Adding the WHERE clause: 
+        - 
+        - SELECT * FROM mm_game WHERE LOWER(game_title) = 'SOMA'
+        - 
+        - 
+    - Another way of concatenating: 
+        - 
+        - You can use || to concatenate multiple strings. the CONCAT() function only takes two parameters so you would need to nest multiple functions
+        - SELECT 'Firstname' || firstname || 'Lastname' || lastname FROM mm_customer;
+        - 
+    - Nesting functions: 
+        - 
+        - Single-row functions can be nested
+        - Nested functions are evaluated from deepest level to least deep level
+        - https://remnote-user-data.s3.amazonaws.com/xCMxBCl4GIwpP2hY0UuJprtMfLVghmPAMu5rJriF5Zq58yPJTmIFY2kaJ0aZP0ifcmEki_A2_YNcHMW5K8_f9wdLiSSwshnOuDojlCTpv0uoTgRumAMIvTo-dKbOan8l.png 
+
+- Learning Objectives: 
+    - 
+    - Using joins to retrieve data from multiple tables
+    - Mixing joins and conditions to retrieve specific data
+    - Understanding the difference between equi, non-equi and cross-joins
+    - 
+- What is a join? 
+    - 
+    - So far, in our queries, we have been looking at one table at a time.
+    - In SQL, you often need to write queries that get data from two or more tables. To get this data, you need a join
+    - 
+- Two Related tables: 
+    - 
+    - Example: 
+    - DROP TABLE IF EXISTS scientist, university;
+CREATE TABLE university (uni_id INT PRIMARY KEY, uniname varchar (30));
+
+CREATE TABLE scientist (sci_id INT PRIMARY KEY, 
+firstname VARCHAR(100), 
+lastname VARCHAR(100), 
+uni_id INT REFERENCES university (uni_id));
+INSERT INTO university VALUES (123, 'trinity'), (321, 'tu dublin'), (213, 'dcu’);
+
+INSERT INTO scientist VALUES (1, 'albert', 'einstein', 321), (2, 'isaac', 'newton', 123), (3, 'marie', 'curie', 213);
+
+    - 
+    - The table university provides data to the table scientist as a foreign key. We can use that connection to get data from both tables.
+    - %LOCAL_FILE%OadjlOCWLNG7qfyu_Mq43Qzzc1ZbcOH-EkxydLzvM5n8Zt2zIMqLrBiRj4rUiim8C0J7vASudp02a3GgIr6M4JJHSbtoDcHj4SrHMn78XMdJo-2JR_pEZ-YkldMzJ7cZ.png 
+    - 
+- Joins: 
+    - 
+    - A join is where we query from two tables at once, linked together by a common trait
+    - Major benefit of using a relational database
+    - It combines rows from two or more tables based on the related column they have
+    - There are different types of joins and the can be used depending on what data you want to retrieve
+    - %LOCAL_FILE%vpXyhXjpSHyzqBJl9H4HQ-ztL1BG9_PD8Pb24k1aKi0pm5cOJOXFAKbC-yq6eb6lnutbVVd-yaHdWdL1xUVme1kINK9DhGRKmnyPPtxg-fN-2GZXNfhjC1tJ9Kh2Fc88.png
+    - 
+- Inner Join: 
+    - 
+    - This statement selects records considering the matching values in both tables
+    - This type of join tells the DBMS you want to see all the records in table1 and table 2 where there is a record in both tables
+    - This makes sense for us to do because we can trust the integrity of the data due to the foreign key
+    - Inner Join syntax compares rows of table1 with table2 to check if anything matches based on the condition provided on the ON clause
+    - 
+    - INNER JOIN - syntax:
+        - 
+        - The syntax is simple: the INNER JOIN is part of a select statement and includes the word JOIN  and an ON (or USING ) clause to determine what data the two tables have in common
+        - 
+        - SELECT column_name(s) FROM table1 JOIN table2 ON table1.column_name = table2.column_name;
+        - 
+        - As the INNER JOIN retrieves only the data the two tables have in common, the order of tables in the FROM . . . JOIN part does not matter
+        - 
+    - INNER JOIN - SYNTAX - ON clause: 
+        - 
+        - You must list the attributes you want to select so there is no repetition
+        - You also need to make it clear where the common attribute is coming from. 
+        - 
+        - SELECT university.uni_id, uniname, sci_id, firstname, lastname FROM scientist JOIN university ON university.uni_id = scientist.uni_id
+        - 
+    - INNER JOIN - SYNTAX - USING clause: 
+        - 
+        - We can also use the USING instead of ON 
+        - This can only be done when the column that has the matching records in the two tables has the same name.
+        - 
+        - SELECT university.uni_id, uniname, sci_id, firstname, lastname FROM scientist JOIN university USING (uni_id);
+        - 
+    - INNER JOIN - more tables: 
+        - 
+        - Adding a third table called research, which includes the research ID, title, and the scientist who coordinates it.
+        - 
+        - CREATE TABLE research (
+    research_id INT PRIMARY KEY,
+    title VARCHAR(255),
+    sci_id INT REFERENCES scientist(sci_id)
+); 
+        - 
+        - https://remnote-user-data.s3.amazonaws.com/FjtAzgWTUbuxkdGsKf7n8_ufEmZXu_WUT2EtrgUrj4IEEvEEN_JFdu8CU9g4kwDj77QPwjiHw2nPSYcz-M48UGEqE5tBz1SYZkUyU6mrLdqKWUdta7K1cNwnq22wCYXP.png 
+        - 
+    - INNER JOIN - retrieving data in ascending order: 
+        - 
+        - The keyword ASC means we want the results in ascending order. DESC is used for descending order
+        - By default, the ORDER BY clause presents the data in ascending order of a certain attribute
+        - SELECT university.uni_id, sci_id, firstname.lastname, FROM scientist JOIN university USING (uni_id) ORDER BY uninameASC;
+        - 
+    - INNER JOIN - Adding condition: 
+        - 
+        - We can also use the WHERE keyword to establish a certain condition
+        - SELECT university.uni_id, uniname, sci_id, firstname, lastname FROM scientist JOIN university USING (uni_id) WHERE uniname like 'U%';
+        - 
+    - INNER JOIN - Combining conditions: 
+        - 
+        - WHERE and ORDER BY conditions can be combined to retrieve very specific data
+        - SELECT university.uni_id, uniname, sci_id, firstname, lastname FROM scientist JOIN university USING (uni_id) WHERE uniname like 'U%' ORDER BY firstname DESC;
+        - 
+    - 
+- Ways of writing joins: 
+    - 
+    - We have been finding the connection between the tables by identifying their common data. This is called a NATURAL JOIN. 
+    - Depending on the way they are written, the JOINS can also be classified as an EQUI JOIN or a NON-EQUI JOIN 
+    - 
+- EQUI JOIN: 
+    - 
+    - An equi join is a join where the two columns are matched using the equals sign
+    - It means that the values in the columns must be equal, the column names can be different though
+    - SELECT columns FROM table1 INNER JOIN table2 ON table1.start_date = table2.effective_date;
+    - 
+- NON-EQUI JOIN: 
+    - 
+    - A non-equi join is where the two columns are matched using any sign other than the equals sign
+    - SELECT scientist.firstname, scientist.lastname, research.title FROM scientist JOIN research ON scientist.id = research.sci_id WHERE research.research_id > 102;
+    - 
+- CROSS JOIN: 
+    - 
+    - A cross join, also known as a cartesian join or a cross product, combines each row from one table with every row from another table
+    - It effectively pairs every row from the first table with every row from the second table, resulting in a potentially large result set
+    - Cross joins are not very common in practice but can be useful in certain scenarios
+    - https://remnote-user-data.s3.amazonaws.com/3ySfIGJ3n2icuHjeneOTs6C3IgeRoe336KLlai2BqlvjmXcRWGzOmfCTAEO65fOA-LW2QgxknT84W13aoG0VznwspL_C-Ksr0J1YH1EKFqw7ypw5GivKBe5ZXcGeUML8.png
+    - 
+- Left, Right and Full Joins: 
+    - 
+    - Left Joins: 
+        - The LEFT JOIN returns all the records from the left table and also those records that satisfy a condition from the right table. For records with no matching values in the right table, the output contains NULL values
+        - The LEFT JOIN will always return all records from the left table, even when no matches are in the right table
+        - https://remnote-user-data.s3.amazonaws.com/DBaUhMYsjbhLsyYun4qlwIZSWrzTZt5HwNKjgxlgGlf52RCxifQ3sRbduRUGHgM9OoRocPmDWGYH93K77oYFwclgjESK0PEGvOWuwE1qYR7MyvYWntvAUJgkZBxF1EvB.png 
+        - This ensures that data from the left table is preserved in the output, even if there is no corresponding match in the right table
+        - SELECT column_name(s) FROM table1 LEFT JOIN table2 ON table1.column_name = table2.column_name
+        - 
+    - RIGHT JOIN: 
+        - 
+        - The RIGHT JOIN returns all the records from the right table and also those records that satisfy a condition from the left table. For records with no matching values in the left table, the output contains NULL values
+        - The RIGHT JOIN will always return all records from the right table, even when there are no matches in the in the left table.
+        - https://remnote-user-data.s3.amazonaws.com/6qQtE2TQi_dd3Svt9yHKuGXi9ah3a341zloF_IsU6UwE1zYJQmZGOgZUtfLQpWXrhm0o7VnLKxo5gNxTDefFAjCPtE2IRGJASSbztAInsbwkw-2DOaqAHvLZxbRPHN_E.png 
+        - 
+        - SELECT scientist.firstname, scientist.lastname, research.title FROM scientist RIGHT JOIN research on scientist.sci_id = research.sci_id;
+        - 
+    - What is a FULL JOIN: 
+        - 
+        - The FULL JOIN returns all the records of both tables, whether they are matched or not.
+        - FULL JOIN is a combination of LEFT JOIN and RIGHT JOIN
+        - The FULL JOIN can return very large results-sets
+        - https://remnote-user-data.s3.amazonaws.com/Hm0z76hZj6EPDEuJdd59yVsGU43XmaTDArstbzvoseKWTFIZoobIzmkFgxO5XFnL-DScPFEHw-4_KAb8qkDSGNimbFgo9YFzR51kU1BwkesMDc99dzcBYyBy1LA1H0pk.png 
+        - SELECT column_name(s) FROM table1 FULL JOIN table2 ON table1.column_name = table2.column_name WHERE condition;
+        - 
+    - Logical conditions: 
+        - 
+        - Conditions
+            - Operator
+                - Meaning
+            - AND
+                - Returns TRUE if both component conditions are true
+            - OR
+                - Returns TRUE if either component condition is true
+            - NOT
+                - Returns TRUE if the following condition is false- Number Functions: 
+    - 
+    - Round: Round value (up) to specified decimal
+    - Trunc: Truncates value to specified decimal
+    - Mod: returns remainder of division
+    - 
+    - Examples:
+        - Function
+            - Result
+        - ROUND(45.926, 2) 
+            - 45.93
+        - TRUNC(45.926, 2) 
+            - 45.92
+        - MOD(15,4) 
+            - 3
+    - 
+- Working with Dates: 
+    - 
+    - Formatting: 
+        - 
+        - The function to_char can be used to display data in a certain format
+        - 
+        - SELECT TO_CHAR(birth_date, 'DD/MM/YYYY') FROM scientist;
+        - 
+    - Current time: 
+        - 
+        - The now() function can retrieve current date and time
+        - 
+        - select now();
+        - 
+    - Arithmetic with dates: 
+        - 
+        - You can add or subtract a number to or from a date for a resultant date value. For example, if you add 7 to a value stored in the date column, PostgreSQL will produce a date that is one week later than the stored date.
+        - You can add hours to a date by dividing the number of hours by 24
+        - You can compute the difference between two dates by subtracting  
+        - --age calculation
+Select firstname, AGE(birth_date) "Scientist Age" FROM scientist; 
+
+- Models - Purposes: 
+    - 
+    - Models help communicate the concepts that that are in people's minds
+    - 
+    - They can be used to do the following: 
+        - Communicate
+        - Categorise
+        - Describe
+        - Specify
+        - Investigate
+        - Evolve
+        - Analyse
+        - Imitate
+        - 
+    - The objective of data modelling is the produce a model that: 
+        - Can be understood by an end user
+        - And contains sufficient detail for a developer to build a physical database
+        - 
+    - https://remnote-user-data.s3.amazonaws.com/hEMArF5bHvTXZPgAfFKiL81bgvvQJgG3s5Fenvts6xyCQpuVmJaHxwG4mBWkwqz-ZG5i79Sr3csewmCmreL0M3qhb3q8TkUSKBmfhZKaIIjzDMS4EsAqawIFjNk5cLfP.png
+    - 
+- Database Modelling and Implementation Process: 
+    - 
+    - https://remnote-user-data.s3.amazonaws.com/rtHSKx-Wul5XLeNxIR0oQX_5IE1vogIGOknFNE7VN_Si4anxpQdZW2utsj2f8seox5peIK5NzbX0LeX_X-BvWPCUkLwtJHgItiTN2Iz7k2wxCZXx9xyW9zfuqP_RRsut.png 
+    - 
+- The Entity-Relationship Model: 
+    - 
+    - Expressed in terms of: 
+        - 
+        - Entities involved 
+        - Relationships among those entities
+        - Attributes of both entities and their relationships
+        - 
+    - Entity Relationship Diagram (ERD): 
+        - 
+        - An ERD defines the structure of entities and the pattern of relationships between them
+        - When we implement that structure and pattern in a physical database then we can populate it with instances of the entity
+        - The ERD is implementation independent
+        - 
+    - 
+- How do you create a model? 
+    - 
+    - Step 1 - Find the entities: 
+        - 
+        - Discover the entities about which you need to store data
+        - Find the pieces of data required and then group entities
+        - Give entities meaningful names
+        - 
+        - Example: 
+            - Local county councils organise football competitions for school children. Each local county council has a unique identifier and a name
+            - Competitions are held on different dates for each age group with fees and prizes
+        - 
+    - Step 2 - Allocate the attributes to entities: 
+        - 
+        - For each entity:
+            - Identify its attributes
+            - Decide on a name for each
+            - Identify the correct data type and size required for each
+            - 
+        - Data types Logical: 
+            - 
+            - These are different to the physical datatypes
+            - Each attribute can only be of one data type
+            - At design stage you need to clearly identify the data type
+            - 
+        - 
+    - Step 3 - Entity Constraints: 
+        - 
+        - Identify relevant value constraints on the attributes we can define at this stage
+        - Constraints are rules that the data must follow to belong to or be removed from a given entity
+        - Constraints enforce rules
+        - Ensures that whoever uses your data can be confident that the data will be consistent
+        - 
+        - Key Constraints: 
+            - 
+            - Sometimes an entity will have more than one attribute that can serve as a primary key
+            - Any key or minimum set of keys that could be a primary key is called a candidate key 
+            - Once candidate keys are identified, choose one primary key for each entity
+            - Candidate keys which are not chosen as the primary key are known as alternate keys
+            - 
+        - 
+    - Step 4 - Define the relationship: 
+        - 
+        - A relationship is a link or an association between two entities which is meaningful for the organisation
+        - A relationship is a natural business association that exists between one or more entities
+        - Relationships usually arise because of association or structure
+        - All relationships that are usable only involve two entities
+        - We relate entities to each other in quantitative terms
+        - All relationships are bi-directional, so cardinality must be defined in both directions for every relationship
+        - Cardinality defines the minimum and maximum number of instances in one entity that may be related to instances of the other entity
+        - Define the type and optionality of each relationship involved
+        - Define the cardinality of relationships
+        - 
+        - 
+    - 
+- Cardinality: 
+    - 
+    - Zero-to-one: Any occurrence of the first entity is related to at maximum one occurrence of the second entity
+    - One-to-many: Any occurrence of the first entity is related to at least one occurrence of the second entity but may be related to many instances of the second
+    - One-to-one: Any occurrence of the first entity is related to one occurrence of the second
+    - Many-to-many: Two entities are related to each other by one to many relationships
+    - %LOCAL_FILE%gntPUKMm7OSyq9C4ramV8FSkz7Qh27pnJ5xI7EE3u_Bk7nIJnfZV2oQxiE3Qb6XLQUF0z1MlBK26ZSbgq8FtpZwHgLsqrnEqU5Guao4X0ds0TBwNx0kaxDN1REZfTSY8.png 
+    - 
+- Foreign Key: 
+    - 
+    - When one table needs to be related to another table, you must include a common attribute
+    - The common attribute(s) will be the primary key in one table
+    - The attribute(s) in the related table is referred to as the foreign key 
+    - A foreign key must match an existing value in the parent table or be NULL
+    - Foreign keys are based on data values and are purely logical, rather than physical pointers
+    - 
+- Many:Many: 
+    - 
+    - Often with many-to-many relationships there is information associated with the relationship that cannot attached sensibly to either entity
+    - Attaching data to one or other entity results in repeating data
+    - Arrays or lists are not allowed in relational databases
+    - 
+    - Weak Entity: 
+        - This is solved using a weak entity. The primary key of a weak entity is always the combination of the primary keys of the entities in the relationship it is resolving
+        - Why is it weak?
+            - It cannot exist independently of the other entities involved
+            - It only exists to resolve the many to many relationships
+            - 
+        - 
+    - 
+- Data Modelling Concepts: Parent and Child Entities 
+    - 
+    - Parent Entity: 
+        - 
+        - An entity that contributes one or more attributes to another entity, called the parent
+        - In a one-to-many relationship, the parent is on the "one" side
+        - 
+    - Child Entity: 
+        - 
+        - An entity that derives one or more attributes from another entity, called the child
+        - In a one-to-many relationship, the child is the entity on the many side
+        - 
+    - 
+- Difference between Logical and Physical design: 
+    - 
+    - Logical Modelling: 
+        - 
+        - Conceptual
+        - Revolves around the needs of the business, not the database
+        - Involves gathering information about business processes, business entities and organisational units
+        - It is ok to have many to many relationships
+        - 
+    - Physical: 
+        - 
+        - Involves the actual design of a database according to the requirements that were established during logical modelling
+        - Needs to be implementable in the type of database you are working with so we are converting our logical model to a relational data model
+        - Need to resolve the many to many into a series of one to many introducing a weak entity
+        - 
+    - 
+- Summary: 
+    - 
+    - A good data model is simple: 
+        - 
+        - Data attributes that describe any given entity should describe only that entity
+        - Each attribute of an entity instance can have only one value
+        - 
+    - A good data model is essentially non-redundant: 
+        - 
+        - Each data attribute describes at most one entity
+        - Look for the same attribute recorded more than once under different names
+        - 
+    - A good data model should be flexible and adaptable to future needs: 
+    - 
+    - 
+- Entity-Relationship Model: 
+    - 
+    - Expressed in terms of: 
+        - Entities involved
+        - Relationships among those entities
+        - Attributes of both the entities and their relationships
+        - 
+    - 
+- How do you create a model? 
+    - 
+    - Step 1: 
+        - 
+        - Discover the entities about which you need to store data: 
+            - 
+            - Conduct interviews and document analysis
+            - Ask what things they would like to store information about
+            - Study forms, files, reports
+            - Identify key words
+            - Identify event entities
+            - Look for relationships between things
+            - 
+        - Give entities meaningful names:  
+            - Names with nouns
+            - May include adjectives
+            - Define them in business terms
+            - 
+        - 
+    - Step 2: 
+        - 
+        - For each entity: 
+            - 
+            - Identify its attributes
+            - Decide on a name for each
+            - Identify the correct data type and size required for each
+            - 
+        - 
+    - Step 3: 
+        - 
+        - Identify relevant constraints on the attributes we can define at this stage
+        - Constraints are rules that the data must follow to belong to a given entity
+        - 
+    - Step 4: 
+        - 
+        - For each entity: 
+            - 
+            - Identify which attribute will uniquely indentify it
+                - Primary key
+                - 
+            - Picking keys:
+                - Value of key should not change over lifetime of entity
+                - Value of key cannot be null
+                - 
+            - Possibilities
+                - Codes used in business (serial codes, alphabetic codes)
+                - Invent a key (combine a number of attributes, invent a new attribute for the key)
+                - 
+            - 
+        - 
+    - Step 5: 
+        - 
+        - Identify relationships between entities: 
+            - 
+            - A relationship is a link or association between two entities, which is meaningful for the organisation (e.g. a customer placing an order)
+            - A relationship is a natural business association that exists between one or more entities. This may represent an event or logical affinity
+            - 
+            - Relationships usually arise because of:
+                - Association (a customer places an order)
+                - Structure (an order consists of order-lines)
+                - 
+            - All relationships that are usable only involve two entities
+            - Name relationships with VERBS
+            - 
+            - We relate entities to each other in quantitative terms
+            - All relationships are bi-directional so cardinality must be defined in both directions for every relationship
+            - Cardinality defines the minimum and maximum number of instances of the other entity. (also called complexity or degree of the relationship)
+            - 
+        - Define the type and optionality of each relationship: 
+            - 
+            - How many instances of each entity are involved?
+            - Does the relationship have to exist for all instances?
+            - 
+        - Define the cardinality of relationships: 
+            - 
+            - Must a customer exist for every order?
+            - Must an order exist for every order?
+            - Must an order always include a product?
+            - How many products can an order include?
+            - Must a product appear on an order
+            - 
+        - 
+    - 
+- Information Engineering Notation: 
+    - 
+    - %LOCAL_FILE%esLR-nqxEjiqwehKNMh5kx4t1SIwDAyYqYuyZjbKXTo3T76NN7125tD1N7kRJSYGDjUUs6A3qYiAZoN0dlRFCpoNokFdCqW0VJbzG--NNsUv-yo4RoUGq68S1Gt2bUl0.png
+    - 
+- Non-identifying relationships: 
+    - 
+    - A relationship where each participating has its own independent primary key
+    - Primary key attributes are not shared
+    - These entities are called strong entities
+    - %LOCAL_FILE%Rm69hY7-vibxHwsonHFbZTbEkvkTCqcA_C_62t8nVkTXDccKO0T-fAOjfZzEdhNGI0XyqS4kQR6Fn_LtT8z_Osy1ZHjtT1mbHGbS5O3w6uPXjWUztx8aSspu7pSVdhMZ.png 
+    - 
+    - A non-identifying relationship is a relationship between two entities in which an instance of a child entity is not identified through its association with a parent entity, which means the child entity is not dependent on the parent entity for its identity and can exist without it
+    - 
+    - Non-identifying relationship: When the primary key attributes of the parent are not part of the primary key attributes of the child but an attribute of the child table
+    - 
+- Identifying Relationships: 
+    - 
+    - A relationship in which the parent entity key is also part of the primary key of the child entity. The child entity is called a weak entity 
+    - %LOCAL_FILE%O3wTHAxiH9j-GfBwu3FeQvQjlV8a6n0O886CkA5tkF4J6y6LScKGUUgG5SxmBDecRL6m7rLddPLZpgy8MJ86q5xFwptPz8Jbc-9alvu-g1qiuLmrFsZaXK7ndU6Zv_a3.png
+    - 
+    - In this case, the primary key of the child entity is a compound or composite key 
+    - Conceptually, a room does not exist in this model unless it is in a building, so it depends on the building for its identity
+    - Therefore, it must be part of its primary key
+    - This becomes particularly important when resolving logical to physical models
+    - When the existence of an instance in a child table depends on a row in a parent table
+    - The PK of the parent table must be a part of the child's primary key
+    - 
+- CHECK Constraints: 
+    - 
+    - As discussed before, the process of data modelling includes considering the constraints to be implemented to keep the accuracy of data inserted in each table
+    - One of the constraints that can be added is the CHECK constraint
+    - It defines a condition that each row must satisfy
+    - 
+    - This allows the column value to be checked: 
+        - Against a range of values
+        - Or selection of values
+        - There is a way of doing more extensive checking but CHECK protects our table from having a lot of bad data
+        - 
+    - A single column can have multiple CHECK constraints that refer to the column in its definition.
+    - 
+- CHECK: 
+    - 
+    - The CHECK constraint is used to limit the value range that can be placed in a column
+    - If you define a CHECK constraint on a single column, it allows only certain values for this column
+    - If you define a CHECK constraint on a table, it can limit the values in certain columns based on values in other columns in the row 
+
+- Conditional Expressions: 
+    - 
+    - Provide the use of IF-THEN-ELSE logic within an SQL statement
+    - 
+    - %LOCAL_FILE%I-GiHXKxTBpd2gTSewDxOCoDG49XJbGVKcHyuPV2GQTMuGau1LMWwU3rwC-qoMpHNwnMJMPnDWsS5xVUBmrnB0uSQx7AE6BbG7gPpWL0hreGhu2-7lgz-_4l7O3sOIfX.png 
+    - 
+- CASE EXPRESSION: 
+    - 
+    - The CASE expression goes through a list of conditions, returning a value once a condition is met
+    - If a true condition is met, it returns the value in the ELSE clause. If there is no ELSE part and no conditions are true, it returns NULL 
+    - SELECT attribute,
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    WHEN conditionN THEN resultN
+    ELSE result
+END
+FROM tablename; 
+    - 
+- COALESCE Function: 
+    - 
+    - The COALESCE function is used to return the first non-null value from a list of expressions
+    - It's handy for handling situations where you have multiple columns with potentially null values and you want to select the first non-null value
+    - SELECT firstname,lastname,
+COALESCE(uniname, 'No University') 
+AS university_name
+FROM scientist
+LEFT JOIN university ON
+scientist.uni_id = university.uni_id;
+    - 
+- Conditions: 
+    - 
+    - NULLIF: function compares two expressions and returns null if they are equal; otherwise it returns the first expression
+    - GREATEST: function returns the greatest value from a list of expressions. It can be used with numeric, date or text values
+    - LEAST: function returns the lowest value from a list of expressions
+    - 
+- Views: 
+    - 
+    - A database view is a logical or virtual table based on a query
+    - It is useful to think of a view as a stored query
+    - It helps to avoid writing the same query over and over again
+    - Useful ways of presenting different information to different users
+    - Views are created through the use of a CREATIVE VIEW command that incorporates the the use of a SELECT statement. They are queried just like tables
+    - The view is called a virtual table
+    - It does not store a table physically instead, it represents a complex query, avoiding the need to rewrite it many times
+    - Views can also be helpful in complying with specific needs of specific users 
+    - 
+    - CREATE TABLE products (product_id serial PRIMARY KEY,product_name varchar(255), price numeric);
+
+CREATE TABLE orders (order_id serial PRIMARY KEY,order_date date,product_id int, quantity int);
+
+INSERT INTO products (product_name, price) VALUES ('Product A', 10.00), ('Product B', 15.00);
+
+INSERT INTO orders (order_date, product_id, quantity) VALUES ('2023-01-01', 1, 3), ('2023-01-02', 2, 2), ('2023-01-03', 1, 1);
+
+CREATE VIEW order_details AS SELECT o.order_id, o.order_date, p.product_name, p.price, o.quantity, (p.price * o.quantity) AS total_price FROM orders o JOIN
+products p ON o.product_id = p.product_id;
+
+SELECT * FROM order_details;
+    - 
+- Updating a View: 
+    - 
+    - In some situations, we might need to update what attributes are considered in the view we created
+    - Instead of dropping view and creating it again, we can update the view
+    - 
+- Inserting and deleting data through a view: 
+    - 
+    - Even though the view is not the physical table, just a virtual version of it, we can still use it to insert and delete data from the original table
+    - This is done using INSERT INTO or DELETE FROM statements on the view
+    - 
+- Views: 
+    - 
+    - Work like a virtual table
+        - DROP VIEW 
+        - CREATE VIEW 
+        - SELECT 
+        - 
+    - Also can make changes to the data:
+        - INSERT 
+        - UPDATE 
+        - DELETE 
+
+- Aggregate functions: 
+    - 
+    - Group functions operate on sets of rows to give one result per group
+    - 
+- The count() function: 
+    - 
+    - The count() function counts how many rows are available in a table.
+    - 
+    - SELECT COUNT(*) FROM mm_game;
+    - 
+    - The * means all, so we are counting all rows without setting up a specific condition. This results in a single row with the number of table rows
+    - We can add complexity by counting values for a specific attribute
+    - 
+    - --returns number of rows that are not null
+SELECT COUNT(return_date) FROM mm_rental; 
+    - 
+    - The result will still be a single value, but will only consider the number of rows that have that attribute value
+    - 
+- GROUP BY statement:
+    - 
+    - The GROUP BY statement can be used to aggregate specific values of an attribute by the group function
+    - 
+    - SELECT teamno, COUNT(compid) FROM competitor GROUP BY teamno;
+    - 
+    - The SELECT clause specifies the columns to be retrieved
+    - The FROM clause specifies the tables that the database must access
+    - We can also use the WHERE and LIKE keywords to add more complexity
+    - 
+- The avg() function: 
+    - 
+    - The average function will present numeric values
+    - 
+    - --Average Title Length:
+SELECT AVG(LENGTH(title)) AS avg_title_length
+FROM research; 
+    - 
+    - avg() can also be combined with WHERE and LIKE conditions. 
+    - 
+- The sum() function: 
+    - 
+    - The sum function will present numeric values
+    - --Sum of Research IDs by University:
+SELECT u.uniname, SUM(r.research_id) AS total_research_ids
+FROM university u
+LEFT JOIN scientist s ON u.uni_id = s.uni_id
+LEFT JOIN research r ON s.sci_id = r.sci_id
+GROUP BY u.uniname;
+    - 
+- MIN and MAX: 
+    - 
+    - Using the MIN() and MAX() for numeric, character and date data types
+    - SELECT min(game_price), max(game_price) FROM mm_game;
+    - 
+    - For date values, MIN() displays the oldest value and MAX() displays the newest one
+    - For character values, MIN() displays the character closest to the beginning of the alphabet, while MAX() displays the one closest to the end
+    - 
+- Aggregate functions and null values: 
+    - 
+    - Aggregate functions ignore NULL values in the column.
+    - The COALESCE function provides alternate values to any other NULL values
+    - COUNT(DISTINCT attribute) returns the number of distinct non-null values of an attribute
+    - 
+- WHERE and HAVING: 
+    - 
+    - The WHERE condition selecting the data based on a certain condition. However, it cannot apply group functions to that data
+    - The difference between WHERE and HAVING is that WHERE selects input rows before groups and aggregates are computed whereas HAVING selects group rows after groups and aggregates are computed 
+    - The WHERE clause must not contain aggregate functions; it makes no sense to use an aggregate to determine which rows will be inputs to the aggregates 
+    - 
+- Restricting Group Results with the HAVING clause: 
+    - 
+    - When you use the HAVING clause, the PostgreSQL server restricts groups as follows:
+        - Rows are grouped by the expression you have given
+        - The group function is applied
+        - Groups matching the HAVING clause are displayed
+        - 
+    - SELECT uni_id, AVG(EXTRACT(YEAR FROM birth_date)) AS
+avg_birth_year
+FROM scientist
+GROUP BY uni_id
+HAVING AVG(EXTRACT(YEAR FROM birth_date)) > 1900;
+    - 
+- FILTER: 
+    - 
+    - FILTER works like WHERE, except that it removes rows only from the the input of the aggregate function that it is attached to. 
+    - It allows you to filter the rows that contribute to that condition
+    - 
+- Nesting Group Functions: 
+    - 
+    - We can also combine and nest group functions. The following one selects the game type with the highest average price:
+    - SELECT MAX(AVG(game_price)) FROM mm_game GROUP BY game_type_id;
+    - 
+- String Aggregation: 
+    - 
+    - Aggregate function that concatenates a list of strings and places a separator between them
+    - It allows us to concatenate attributes considering a GROUP BY statement. 
+    - SELCT uni.uniname "University",
+STRING_AGG(scientist.firstname || ' ' || scientist.lastname ', ') "Associated Scientists"
+FROM university uni
+JOIN scientist ON uni.uni_id = scientist.uni_id
+GROUP BY uni.uniname; 
+    - 
+- Array Aggregation: 
+    - 
+    - Creates an array from a set of values. It groups values together into an array, and you can then use this array as a single result for each group
+    - SELECT university.uniname,
+ARRAY_AGG(to_char(scientist.birth_date, 'DD/MM/YYYY')) "Scientists' birth dates array"
+FROM university
+JOIN scientist ON university.uni_id = scientist.uni_id
+GROUP BY university.uniname;
+    - 
+- Common Table Expression (CTE): 
+    - 
+    - Temporary result set that can be referenced with a SELECT, INSERT, UPDATE or DELETE statement
+    - It provides a way to break down complex queries into more manageable and readable parts
+    - WITH university_birth_dates AS (
+SELECT uni.uniname, ARRAY_AGG(scientist.birth_date) AS birth_dates_array 
+FROM university uni
+JOIN scientist ON uni.uni_id = scientist.uni_id
+GROUP BY uni.uniname
+);
+
+SELECT uniname, birth_dates_array[1] AS first_birth_date, birth_dates_array[2] AS second_birth_date FROM university_birth_dates; 
+
+- Subquery in SQL: 
+    - 
+    - A subquery is a query nested inside a bigger query
+    - The subquery can be nested inside a SELECT, INSERT, UPDATE, or DELETE statement or inside another subquery
+    - 
+- Subquery in WHERE clause: 
+    - 
+    - SELECT attribute_name FROM table_name WHERE condition (SELECT attribute FROM table_name WHERE condition);
+    - 
+    - The subquery (inner) executes once before the main query (outer)
+    - The result of the subquery is used by the main query
+    - 
+- Single-row subqueries: 
+    - 
+    - Return only one row from the sub-query
+    - Use single-row comparison operators
+    - SELECT firstname, lastname FROM scientist
+WHERE uni_id = (SELECT uni_id FROM university WHERE uniname = 'Trinity College Dublin');
+    - 
+- Combining single-row subqueries: 
+    - 
+    - We can also combine single-row subqueries to write more complex conditions
+    - SELECT game_type_id, game_title FROM mm_game WHERE
+game_price > (SELECT game_price FROM mm_game WHERE
+game_title = 'Soma') AND game_type_id = (SELECT
+game_type_id FROM mm_game WHERE game_id = 1);
+    - 
+- EXISTS: 
+    - 
+    - The EXISTS keyword is typically used to check for the existence of rows in the subquery and it returns true if the subquery returns one or more rows
+    - SELECT 1 is used in EXISTS subqueries to check for the the existence of at least one row that satisfies the specified conditions in the subquery
+    - SELECT firstname, lastname FROM scientist s
+WHERE EXISTS (SELECT 1 FROM university u WHERE u.uni_id = s.uni_id
+AND u.uniname = 'Trinity College Dublin');
+    - 
+- Multiple-row subqueries: 
+    - 
+    - Returns more than one row from the subquery
+    - Uses multiple-row comparison operators
+    - 
+    - Comparisons
+        - Operator
+            - Meaning
+        - IN 
+            - Equal to any member in the list
+        - NOT IN 
+            - Unequal to any member in the list
+        - ANY/SOME 
+            - Compare a value to each value returned by the subquery
+        - ALL 
+            - Compare value to every value returned by the subquery
+    - 
+    - IN operator: 
+        - 
+        - The IN operator is used to check if a value matches any value in a subquery
+        - SELECT * FROM scientist
+WHERE uni_id IN (SELECT uni_id FROM university WHERE
+uniname = 'Trinity College Dublin' OR uniname =
+'Dublin City University');
+        - 
+    - NOT IN operator: 
+        - 
+        - The NOT IN operator is used to check if a value does not match any value in a subquery
+        - SELECT * FROM scientist
+WHERE uni_id NOT IN (SELECT uni_id FROM university WHERE uniname
+IN ('Trinity College Dublin', 'University College Dublin'));
+        - 
+    - Using the ANY operator in multi-row subqueries: 
+        - 
+        - The ANY operator (and SOME) compares a value to each value returned by a subquery and returns a row if it meets the condition for any of them
+        - SELECT game_id, game_title, game_price FROM mm_game
+WHERE game_price < ANY (SELECT game_price FROM mm_game
+WHERE game_type_id = 1) AND game_type_id <>1;
+        - 
+    - Using the ALL operator in multi-row subqueries: 
+        - 
+        - The ALL operator compares a value to every value returned by a subquery and returns a row only if it meets the condition for all of them
+        - SELECT game_id, game_title, game_price FROM mm_game
+WHERE game_price < ALL (SELECT game_price FROM mm_game
+WHERE game_type_id = 5) AND game_type_id <>5;
+        - 
+    - 
+- DELETE: 
+    - 
+    - Removes all rows which satisfy the condition
+    - Does not free the memory space
+    - It is slower than truncate since it operates in each row individually
+    - If no condition is given then all rows are deleted
+    - 
+- Deleting existing table records using TRUNCATE: 
+    - 
+    - Removes all of the table data without saving any rollback information
+    - It frees up the space
+    - Faster than delete because it deallocates the entire data at once
+    - It cannot be used with a condition
+    - Must disable foreign key constraints before truncating table
+    - TRUNCATE TABLE research;
+    - 
+- Updating and deleting existing table records: 
+    - 
+    - Update: 
+        - 
+        - Updates field values in one or more records in a table
+        - Only one table may be updated at a time
+        - All rows where the condition is true have the columns set to given values
+        - If no condition is given, all rows are changed so be careful
+        - Values are constants or can be computed from columns
+        - UPDATE tablename SET field1 = newvalue1, fieldn = newvaluen WHERE search condition;
+        - 
+    - Delete: 
+        - 
+        - Removes specific records from a database table 
+        - If search condition is omitted, entire table data is remoced
+        - DELETE FROM tablename WHERE search condition;
+        - 
+    - 
+- Guidelines for Using Subqueries: 
+    - 
+    - Enclose subqueries in parentheses (. . .)
+    - Place subqueries on the right side of the comparison condition
+    - Use single-row operators with single-row subqueries, and use multiple-row operators with multiple-row subqueries
+
+- Joins x Set operations: 
+    - 
+    - Another way to retrieve data from multiple tables is by using set operations 
+    - While joins combine rows based on related columns, set operations work on entire result sets, connected or not
+    - Joins are used to retrieve related data from multiple tables, whereas set operations are used to manipulate the entire sets of data from queries
+    - 
+- UNION operator: 
+    - 
+    - The UNION operator returns a union of two select statements
+    - While a full outer join retrieves data from two connected tables, the resulting table includes two equal columns (the attribute that connects those table
+    - With the UNION operator, the resulting table does not include duplicates
+    - It is also possible to select multiple tables, even if they are not connected
+    - 
+- Using the UNION operator:  
+    - 
+    - Rules: 
+        - 
+        - Every SELECT statement within UNION must have the same number of columns
+        - Having columns with the same data types across different SELECT statements within a UNION is good practice. PostgreSQL is capable of implicit type conversions in certain cases. Relying on implicit conversions might not always be good practice for maintainability
+        - The columns in every SELECT statement must be in the same order
+        - SELECT department FROM project UNION SELECT department FROM employee;
+        - 
+    - 
+- INTERSECT operator: 
+    - 
+    - The INTERSECT operator returns rows that have common values to both queries
+    - Every SELECT statement within INTERSECT must have same number of columns
+    - The columns in every SELECT statement must also be in the same order
+    - SELECT department FROM project INTERSECT SELECT department FROM employee;
+    - 
+- EXCEPT/MINUS Operator: 
+    - 
+    - The MINUS/EXCEPT operators returns rows in the first query that are not present in the second query
+    - Every SELECT statement within EXCEPT/MINUS must have the same number of columns
+    - The columns must also have the same data types
+    - The columns in every SELECT statement must also be in the same order
+    - SELECT department FROM employee EXCEPT SELECT department FROM project;
+    - 
+- UNION, INTERSECT and EXCEPT/MINUS: 
+    - 
+    - Treat the tables as sets and are the usual set operators of union, intersection and difference
+    - They all combine the results from two select statements
+    - The results of the two selects must have the same columns and data types
+    - 
+- Combining SET operations: 
+    - 
+    - You can combine set operations in SQL to perform more complex queries and retrieve specific subsets of data
+    - SQL allows you to nest queries and apply multiple set operations in a single statement
+    - 
+- Joins x Set operations: 
+    - 
+    - Joins handle relationships between tables, allowing for precise and context data retrieval 
+    - In some scenarios, joins can be more efficient, especially when working with larger datasets
+    - Joins offer more customisation in specifying how tables should be combined based on specific criteria
+    - Use joins when you need data from different tables based on their relationships and want a more complex, context-rich result set
+    - Use Set Operations when you want to combine results from multiple queries, find unique elements, or perform set operations on the results
+
+- Index: 
+    - 
+    - In PostgreSQL, an index is a database object used to speed up the retrieval of rows from a table. It's like an ordered list or a reference to the data in a table, allowing the database system to locate rows more efficiently
+    - It is a data structure created on top of your table to create shortcuts to access the data
+    - 
+- EXPLAIN and ANALYSE: 
+    - 
+    - How long does it take for a query to run?
+    - We can use the combination of the commands EXPLAIN and ANALYZE 
+    - EXPLAIN: a command used to retrieve the execution plan, showing how the table will be scanned, how the algorithm beings together the required rows from each input table (in case of joins). The statement is not executed, only analysed
+    - ANALYZE: Carry out the command and show actual run times and other statistics. Even though we can use the ANALYZE command on its own, it is common to combine with the EXPLAIN command
+    - 
+- EXPLAIN:  
+    - 
+    - EXPLAIN SELECT * FROM person WHERE first_name = 'August';
+    - 
+    - %LOCAL_FILE%5lKYCf6uX-_bT1j_OEcvKFQm-a70zSqMndZl1R1-q6023VJx-w2gLyrIMrwBealDYym-1dzakwrjy7CP9RGn6Lqolvd7G_cPlXPsXiTZPhZnyzdSnPOjgbvwmjHZV4o_.png
+    - 
+    - The result we get when trying to explain the select statement shows that:
+        - The full table will be scanned (Seq scan on person)
+        - This process will cost 0.00 ms to start fetching data (Postgres did not have to do extra work before going to the table
+        - Postrgres thinks it will take 391.44ms to retrieve the data
+        - It also believe it will fetch 4 rows
+        - The width is the sum of all the bytes of all the columns retrieved
+        - 
+    - 
+- ANALYZE: 
+    - 
+    - EXPLAIN ANALYZE SELECT * FROM person WHERE first_name = 'August'; 
+    - 
+    - %LOCAL_FILE%d6WElPsrgMGq17JTE0YZQXToeTsjZlOjUh0WjcL2BZFRuUza6ewbS9na4iRyvTso632YqtL4--VFmvtT0KLCZFg3Po7tw4-XbWHBssv78jroo_gozPGwaMsJTGsapFqq.png
+    - 
+    - The result we get will:
+        - Show that Postgre initially expected and then the actual time it took to run the query
+        - The process of filtering the data to retrieve the values
+        - How many rows were skipped
+        - The planning and execution times
+        - 
+    - 
+- The Index:
+    - 
+    - Indices will be used to improve the efficiency of our queries
+    - In an index, every item is composed by the value and a pointer to this value
+    - Like an index in a book, it will create data structures that will allow finding values faster
+    - PostgreSQL provides various index types - we can choose among B-tree, Hash, Gist, etc.
+    - B-tree is the default one, fitting most situations
+    - 
+- Balanced tree (B-tree): 
+    - 
+    - B-trees are balanced tree structures where each node can have multiple children. Their data is organised hierarchically, with nodes containing ranges of values and pointers to child nodes
+    - Provides logarithmic time complexity for searches, and remains balanced despite frequent insertions and deletions
+    - B-trees can handle equality and range queries on data that can be sorted into some ordering
+    - Commonly used when comparison operators are involved
+    - BETWEEN and IN can also be implemented with a B-tree index search. Also an IS NULL and IS NOT NULL condition on an index column can be used with a B-tree index.
+    - B-tree indexes can also be used to retrieve data in sorted order. This is not always faster than a simple scan and sort but it is often helpful
+    - %LOCAL_FILE%KcHRE2PpHZwYpUrYThlNUfBtTil0M_AOHXHDRemh0zb4vsn-EsTfiQ1uS11gJQInM8NM0Z-oTVUphaEcvLBGoc2hEXGs9CSwPTQVUJTS66OHjTBkYGYMSsM-FxgQtJGM.png 
+    - 
+- Creating an index: 
+    - 
+    - To create an index, we need to choose the column or columns that will be part of it.
+    - We start by dropping the index, then creating it
+    - 
+    - DROP INDEX IF EXISTS person_firstname_index;
+CREATE INDEX person_firstname_index ON person(first_name); 
+    - 
+    - When we searched for the firstname 'August' before, we got a time of almost 3 ms. When we run the same query again, after creating an index, we get:
+    - explain analyze select * from person where first_name = 'August';
+    - 
+    - %LOCAL_FILE%uxNsxBITdGX4DvCS7sOi1gegmWwUglaeaDn41UM1vqP3VfpTmZ5ivIobujhpPbz0wCRi2wjGsnAC0ydq51i_EWyM31bAbdxlCM_GSBw1w8dFkUDJ-SIjVFLA96Z8KDgN.png
+    - 
+    - Now the execution time was 0.064ms 
+    - It is likely PostgreSQL created a B-tree index for first_name attribute. To search for the value "August", PostgreSQL created a bitmap and used the Bitmap Heap Scan to access the table data
+    - 
+- Not always useful: 
+    - 
+    - Even though an index can be very useful for more efficient queries, PostgreSQL might not always use it
+    - PostgreSQL can decide not to use the index and do a sequential search
+    - 
+- Using a specific data structure: 
+    - 
+    - PostgreSQL tends to adopt b-trees as the index data structure
+    - However, we able to decide which data structure we want to use by adding the keyword USING to create our CREATE INDEX statement
+    - CREATE INDEX person_firstname_index ON person USING HASH (firstname)
+    - 
+    - Hash data structures as indexes can only handle single equality comparisons. Hash indexes in PostgreSQL also only support a single-column key, so having a multi-column index as a hash index isn't an option
+    - 
+- Multi-column index:
+    - 
+    - An index can also be defined using multiple columns of a table:
+    - 
+    - DROP INDEX IF EXISTS multi_idx;
+CREATE INDEX multi_idx ON person (last_name, first_name); 
+    - 
+    - We added last_name as the first attribute on the index as it is common to search for last names more than first names
+    - Multicolumn indexes can also benefit queries where we need to retrieve data based on multiple conditions. Check the execution time before and after creating the index.
+    - 
+- ORDER BY: 
+    - 
+    - An index may be able to deliver them in a specific sorted order
+    - Only B-tree can produce sorted output, the other index types return matching rows in an unspecified implementation-descendant order
+    - 
+- Unique Indexes: 
+    - 
+    - A unique ensures that the values in a column are unique  across the table
+    - It works similarly to adding UNIQUE in the DDL, but it allows more flexibility and control - you can quickly drop an index or make it multi-column
+    - DROP INDEX IF EXISTS idex_unique_name;
+CREATE UNIQUE INDEX idx_unique_name ON person(first_name); 
+    - 
+- Indexes on expressions: 
+    - 
+    - PostgreSQL allows indexing not just on columns but also on expressions. 
+    - --index on expression
+drop index if exists idx_full_name;
+create index idx_full_name on person((first_name || ' ' || last_name));
+explain analyze SELECT * FROM person WHERE (first_name || ' ' || last_name) = 'Cass Yesson'; 
+    - 
+- Partial Index: 
+    - 
+    - Partial indexes are indexes built on a subset of data that meets a specified condition.
+    - EXPLAIN ANALYZE SELECT * FROM person WHERE last_name = 'Smith';
+
+- Trigger: 
+    - 
+    - A trigger specifies that the database should automatically execute a particular function whenever a certain type of operation is performed
+    - Triggers can be performed on tables, being executed before or after an INSERT, UPDATE or DELETE statement.
+    - Triggers can be:
+        - Row-level triggers: Fired for each row affected by an event
+        - Statement-level triggers: Fired once for the entire statement, regardless of the number of affected rows
+        - 
+    - 
+- E-Commerce Example: 
+    - 
+    - %LOCAL_FILE%5QX_eO_IlDO3_u97Z_AtLDZOkwEdRPgDtgUa2ZRFvFbcZ3r2Hpy4Ra3ROBa4YUU5EPwkkFGnIBLIRynCs9loXSTzL2MMWPfhDp2faCg-_2Ar90s-S37Qur5lkCLWfUKy.png 
+    - 
+- Creating Tables: 
+    - --Dropping tables
+DROP TABLE IF EXISTS invoice, cart, users, shop_item CASCADE;
+
+-- Create the shop_item table
+CREATE TABLE shop_item (
+shop_item_id SERIAL PRIMARY KEY,
+name VARCHAR(100),
+price_cents int
+);
+
+-- Create the user table
+CREATE TABLE users (
+user_id SERIAL PRIMARY KEY,
+username VARCHAR(50),
+password VARCHAR(50),
+address TEXT
+);
+
+-- Create the cart table
+CREATE TABLE cart (
+cart_id SERIAL PRIMARY KEY,
+shop_item_id INT REFERENCES shop_item(shop_item_id),
+user_id INT REFERENCES users(user_id)
+);
+
+-- Create the invoice table
+CREATE TABLE invoice (
+invoice_id SERIAL PRIMARY KEY,
+user_id INT REFERENCES users(user_id),
+total_price_cents INT,
+invoice_date DATE
+);
+
+    - 
+- Create a function to be triggered: 
+    - 
+    - -- Create a function to update the total_price in the invoice table
+CREATE OR REPLACE FUNCTION update_invoice_total()
+--The function returns as a trigger
+    RETURNS trigger
+    LANGUAGE plpgsql
+AS $$
+
+DECLARE
+    total INT;
+    
+BEGIN
+--sum up the items prices
+	SELECT SUM(shop_item.price_cents) INTO total
+	FROM cart
+	JOIN shop_item USING (shop_item_id)
+	WHERE cart.user_id = NEW.user_id;
+	--check if there is any value on the invoice already and update it
+		IF EXISTS (SELECT 1 FROM invoice WHERE user_id = NEW.user_id) THEN
+		UPDATE invoice SET total_price_cents = total WHERE user_id =
+		NEW.user_id;
+                ELSE
+			--if not, insert a new value
+			INSERT INTO invoice (user_id, total_price_cents, invoice_date)
+			VALUES (NEW.user_id, total, CURRENT_DATE);
+		END IF;
+		RETURN NULL;
+END;
+$$ ;
+    - 
+    - Create the trigger and associate it with the function. notice that we are inserting new values into the invoice table only after rows are inserted into the table cart
+    - 
+    - DROP TRIGGER IF EXISTS update_invoice_trigger ON cart;
+CREATE TRIGGER update_invoice_trigger
+	AFTER INSERT ON cart
+	FOR EACH ROW
+	EXECUTE FUNCTION update_invoice_total();
+- 
+
+- Databases: 
+    - 
+    - A database is a shared persistent collection of logically related
+data, supporting several different applications within an
+organisation.  
+    - Shared: used simultaneously by many applications and users
+    - Persistent: permanently stored
+    - The data stored is all related in some way  
+    - 
+- Relational Database: 
+    - 
+    - A relational database is a collection of relations or two-dimensional tables.
+    - 
+    - Some advantages: 
+        - Flexible
+        - Promote data integrity
+        - Tables are related via a common data item, allowing
+access considering user needs
+        - Easy to use – Simple to add to, delete and modify  
+    - 
+- DBMS: 
+    - 
+    - A Database Management System (DBMS) is the set of
+software which manages a DB or set of DBs
+    - 
+    - Aims of DBMS: 
+        - Provides Data Manipulation Languages (languages for storing,
+retrieving and updating data in the DB).
+
+        - Provides Data Definition Languages (languages for defining the
+data).
+        - Efficient, reliable and secure management of large amount of persistent
+data.
+        - 
+    - Examples: 
+        - Proprietary: MS Access, MS SQL Server, MySQL Enterprise, Oracle
+        - Open source: MySQL Cluster, PostgreSQL  
+        - 
+    - 
+- Issues to bear in mind: 
+    - 
+    - Consistency: 
+        - Protect your database by controlling what can be input into it
+        - Entity integrity – primary keys
+        - Referential integrity – foreign keys
+        - Domain integrity – datatypes and value constraints
+        - 
+    - Avoid Redundancy: 
+        - The same piece of data should not be stored in more than one
+location unless it is there to achieve referential integrity  
+        - 
+    - 
+- Modelling: 
+    - 
+    - 
+- Database Modelling and Implementation Process: 
+    - %LOCAL_FILE%UExEglxf6taUsDP7Wye6Gg5l1pJ7Jn_SKFL-LeIFVWB-s9v_hcVFfSvuZQbn9b6DtavxGfwezNjW3AIf6d5WPJE8N2Yhg0oKmMibaaTeSuxBmR-E5LaFCKWTf9SlrTZG.png 
+    - 
+- The Entity Relationship model (ERD): 
+    - 
+    - Expressed in terms of: 
+        - 
+        - Entities: involved (things about which data is to be stored)
+        - Relationships (or associations) among those entities
+        - Attributes (properties) of both the entities and their relationships  
+        - 
+    - Expressed in a form: 
+        - Understandable to both the user and to the IT technologist
+        - ‘open’ as possible e.g. not tied to any technology or
+methodology
+        - Flexible enough so that it can be used and understood in practically any environment 
+        - 
+    - 
+- Relationships: 
+    - 
+    - A relationship is an association between two entities which is meaningful for the organisation, e.g. A Customer ‘places’ an Order
+        - 
+    - A relationship is a natural business association that exists between one or more entities
+        - May represent an event 
+        - May represent logical affinity 
+        - 
+    - Relationships usually arise because of
+        - Association - a Customer ‘places’ an Order
+        - Structure - an Order ‘consists’ of Order-Lines
+        - 
+    - All relationships that are usable only involve two entities 
+        - One to one
+        - One to Many
+        - Many to Many
+        - Optional/Required  
