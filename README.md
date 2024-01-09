@@ -16,5 +16,5 @@ Currently, the only links that LinkSlayer will remove are local URLs. This is be
 
 ## Screenshot of the Program (Used throught terminal input)
 
-![LinkSlayerEX1](https://github.com/Derv-OFlynn/LinkSlayer/Images/LinkSlayerEX1.png?raw=true)
+![LinkSlayerEX1](https://github.com/Derv-OFlynn/LinkSlayer/blob/Images/LinkSlayerEX1.png?raw=true)
 
