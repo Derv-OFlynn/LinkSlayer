@@ -18,7 +18,7 @@ def intake_name(filename : str):
     will be repeatedly ask for a valid filename. It return a list, with each element being a line from the file'''
     while True:
         try:
-            readfile = open(filename, "r")
+            readfile = open(filename, "r", encoding='utf-8')
             lines = readfile.readlines()
             readfile.close()
             return lines
@@ -29,7 +29,7 @@ def new_txt(new_name : str):
     '''Function to intake the new file name and open the file in write mode. Returns the file object'''
     while True:
         try:
-            newfile = open(new_name, "w")
+            newfile = open(new_name, "w", encoding='utf-8')
             return newfile
         except FileExistsError:
             new_name = input("\nInvalid File name. Try again.\n")
