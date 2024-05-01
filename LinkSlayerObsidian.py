@@ -80,6 +80,17 @@ def file_amalgam(lines):
         new_data = slayer(lines)
         destination.writelines(new_data)
 
+def colour_detect(line):
+    colours = ["#FF5582A6", "#BD6500", "#BABD00", "#69E772", "#69E7E4", "#D2B3FFA6"]
+    
+    for colour in colours:
+        if line.find(colour) != -1:
+            print("\nColour checked:" + colour)
+            return colour
+        
+    print(bidirectional_pad("Highlight colour not known", MAIN_EMOJI))
+    return ''
+
 
 # This should return the text, not write it to a file.
 def slayer(lines) -> List[str]:
@@ -90,38 +101,60 @@ def slayer(lines) -> List[str]:
     Returns the number of links removed
     """
 
+    # Key is set to "imgur" as all images are linked to imgur
     key = "imgur"
-
+    
+    # Highlight key set to syntax used by Obisidian Highlightr Plugin
+    highlight_key = '<mark style="background:'
+    
     link_count = 0
+    highlight_count = 0
+    
+    #Flag to see if a highlight colour has been detected yet
+    highlight_flag = False
+    
     new_text = []
+    
+    
     for line in lines:
         line = str(line)
-                
+        
+        #Detects if there is a highlight and what colour it is
+        if highlight_key in line and highlight_flag == False:
+            highlight_colour = colour_detect(line)
+            highlight_flag = True
+        
+        # Replaces Highlightr syntaxs
+        while line.find(highlight_key) != -1:
+            line = line.replace(highlight_key, '', 1)
+            line = line.replace(highlight_colour, '', 1)
+            line = line.replace(';">', '', 1)
+            line = line.replace('</mark>', '', 1)
+            highlight_count += 1
+        
+        # Replaces markdown highlight syntax
         while line.find("==") != -1:
             line = line.replace("==", '', 1)
-            
+            highlight_count += 1
+        
+        # If the line is not an imgur link, it will be added to the new file 
         if key not in line:
             new_text.append(line)
         else:
             link_count += 1
 
     print(bidirectional_pad(f"{link_count} link(s) have been slain!", MAIN_EMOJI))
+    print(bidirectional_pad(f"{highlight_count} highlight(s) have been slain!", MAIN_EMOJI))
     return new_text
 
 
 def write_new_file(data: str):
-    filename = input(
-        bidirectional_pad(
-            "Please enter the name of the new text file that will be summoned",
-            MAIN_EMOJI,
-        )
-    )
+    filename = input(bidirectional_pad("Please enter the name of the new text file that will be summoned", MAIN_EMOJI,) + "\n")
     while os.path.isfile(filename):
-        filename = input("\nFile already exists. Pick a different one.\n")
+        filename = input("\n" + bidirectional_pad("File already exists. Pick a different one.", MAIN_EMOJI) + "\n")
     with open(filename, "w", encoding="utf-8") as newfile:
         new_data = slayer(data)
         newfile.writelines(new_data)
-
 
 def main():
     print(bidirectional_pad("WELCOME TO LINK SLAYER", MAIN_EMOJI))
@@ -129,12 +162,7 @@ def main():
         match menu:
             case "1":
                 # intakes name of file to be read
-                filename = input(
-                    bidirectional_pad(
-                        "Please enter the name of the text file you wish to cleanse of its sins",
-                        MAIN_EMOJI,
-                    )
-                )
+                filename = input(bidirectional_pad("Please enter the name of the text file you wish to cleanse of its sins", MAIN_EMOJI,) + "\n")
                 # repetition in case 2
                 lines = intake_name(filename)
                 write_new_file(lines)

@@ -1,9 +1,9 @@
 # LINK SLAYER
 
-The purpose of this is to be able to copy notes from Remnote (a note-taking app) and paste them into a TTS (Text to Speech) Reader without the URLs. 
+The purpose of this is to be able to copy notes from Remnote and Obsidian (note-taking applications) and paste them into a TTS (Text to Speech) Reader without the URLs. 
 Images show up as links in plaintext and are not useful when using a TTS reader as a study/accessibility aid.
 
-Link slayer is a python script that reads a file from its directory and writes the contents to a new file of your choosing, excluding URLs from the old file.
+LinkSlayer is a python script that reads a file from its directory and writes the contents to a new file of your choosing, excluding URLs from the old file.
 
 ## User Process
   
@@ -12,9 +12,15 @@ Link slayer is a python script that reads a file from its directory and writes t
 3. A new file is created in the same directory and the program informs the user how many links were removed
 
 ## Link Detection
-Currently, the only links that LinkSlayer will remove are local URLs. This is because it will not write lines to the new file if they contain the string '%LOCAL_FILE%' or 'remnote-user', as this is how links are formatted in RemNote.
+
+Linkslayer will "detect" links by searching for keywords in the given document. Image links take up their own lines so when a line is detected as having a link, the line will not be appended to the new file.
+
+#### Remnote
+LinkSlayer will only remove local URLs. The keys are set to '%LOCAL_FILE%' or 'remnote-user', as this is how links are formatted in Remnote. Found in LinkslayerRemnote.py
+
+#### Obsidian
+Linkslayer will remove both markdown highlights ("==") and highlights that are formatted by the Highlightr Plugin (e.g. ``<mark style="background: #BD6500;">Lorem Ipsum:</mark>``). Found in LinkslayerObsidian.py
 
 ## Screenshot of the Program (Used throught terminal input)
 
-![LinkSlayerEX1](https://github.com/Derv-OFlynn/LinkSlayer/blob/main/Images/LinkSlayerEX1.png)
-
+![LinkSlayerObsidianExample](https://i.imgur.com/xeY5nXj.png)
