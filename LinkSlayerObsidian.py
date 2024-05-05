@@ -109,6 +109,7 @@ def slayer(lines) -> List[str]:
     
     link_count = 0
     highlight_count = 0
+    heading_count = 0
     
     #Flag to see if a highlight colour has been detected yet
     highlight_flag = False
@@ -119,6 +120,11 @@ def slayer(lines) -> List[str]:
     for line in lines:
         line = str(line)
         
+        while line.find("# ") != 1:  
+            line.replace("### ", " ", 1)
+            line = line.replace("# ", " ", 1)
+            heading_count += 1
+
         #Detects if there is a highlight and what colour it is
         if highlight_key in line and highlight_flag == False:
             highlight_colour = colour_detect(line)
@@ -145,6 +151,7 @@ def slayer(lines) -> List[str]:
 
     print(bidirectional_pad(f"{link_count} link(s) have been slain!", MAIN_EMOJI))
     print(bidirectional_pad(f"{highlight_count} highlight(s) have been slain!", MAIN_EMOJI))
+    print(bidirectional_pad(f"{heading_count} heading(s) have been slain!", MAIN_EMOJI))
     return new_text
 
 
