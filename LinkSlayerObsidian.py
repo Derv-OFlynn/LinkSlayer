@@ -120,9 +120,9 @@ def slayer(lines) -> List[str]:
     for line in lines:
         line = str(line)
         
-        while line.find("# ") != 1:  
-            line.replace("### ", " ", 1)
-            line = line.replace("# ", " ", 1)
+        #Removes all headings. Warning: Could remove comments in Python code.
+        while line.find("# ") != -1:  
+            line = line.replace("# ", " ")
             heading_count += 1
 
         #Detects if there is a highlight and what colour it is
@@ -130,7 +130,7 @@ def slayer(lines) -> List[str]:
             highlight_colour = colour_detect(line)
             highlight_flag = True
         
-        # Replaces Highlightr syntaxs
+        #Replaces Highlightr syntaxs
         while line.find(highlight_key) != -1:
             line = line.replace(highlight_key, '', 1)
             line = line.replace(highlight_colour, '', 1)
@@ -138,7 +138,7 @@ def slayer(lines) -> List[str]:
             line = line.replace('</mark>', '', 1)
             highlight_count += 1
         
-        # Replaces markdown highlight syntax
+        #Replaces markdown highlight syntax
         while line.find("==") != -1:
             line = line.replace("==", '', 1)
             highlight_count += 1
